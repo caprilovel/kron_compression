@@ -1,0 +1,804 @@
+Epoch 1/100, Loss: 2.133236435176467
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 0, fc2 sparsity: 5, fc3 sparsity: 0
+total sparse params: 5
+Epoch 2/100, Loss: 0.8633445217284058
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 4, fc2 sparsity: 11, fc3 sparsity: 1
+total sparse params: 16
+Epoch 3/100, Loss: 0.4773493103508248
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 10, fc2 sparsity: 6, fc3 sparsity: 0
+total sparse params: 16
+Epoch 4/100, Loss: 0.3442377527353606
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 5, fc2 sparsity: 7, fc3 sparsity: 1
+total sparse params: 13
+Epoch 5/100, Loss: 0.26747294672643707
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 8, fc2 sparsity: 13, fc3 sparsity: 2
+total sparse params: 23
+Epoch 6/100, Loss: 0.21970461312133366
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 8, fc2 sparsity: 12, fc3 sparsity: 2
+total sparse params: 22
+Epoch 7/100, Loss: 0.18707038898235445
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 6, fc2 sparsity: 16, fc3 sparsity: 0
+total sparse params: 22
+Epoch 8/100, Loss: 0.1647168755976122
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 9, fc2 sparsity: 4, fc3 sparsity: 1
+total sparse params: 14
+Epoch 9/100, Loss: 0.14738833778766172
+(0.0, 0, 12544)
+fc1 sparsity: 5, fc2 sparsity: 5, fc3 sparsity: 3
+total sparse params: 13
+Epoch 10/100, Loss: 0.13356072434992677
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 6, fc2 sparsity: 9, fc3 sparsity: 2
+total sparse params: 17
+Epoch 11/100, Loss: 0.12126645793729245
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 8, fc2 sparsity: 7, fc3 sparsity: 0
+total sparse params: 15
+Epoch 12/100, Loss: 0.11116370650878085
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 4, fc2 sparsity: 7, fc3 sparsity: 0
+total sparse params: 11
+Epoch 13/100, Loss: 0.10377295539259657
+(0.0, 0, 12544)
+fc1 sparsity: 6, fc2 sparsity: 11, fc3 sparsity: 0
+total sparse params: 17
+Epoch 14/100, Loss: 0.09474486122523416
+(0.0, 0, 12544)
+fc1 sparsity: 10, fc2 sparsity: 9, fc3 sparsity: 2
+total sparse params: 21
+Epoch 15/100, Loss: 0.08983567415047557
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 3, fc2 sparsity: 3, fc3 sparsity: 0
+total sparse params: 6
+Epoch 16/100, Loss: 0.08390090859997501
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 8, fc2 sparsity: 12, fc3 sparsity: 1
+total sparse params: 21
+Epoch 17/100, Loss: 0.0794263714428014
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 10, fc2 sparsity: 8, fc3 sparsity: 1
+total sparse params: 19
+Epoch 18/100, Loss: 0.07522766919993261
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 9, fc2 sparsity: 8, fc3 sparsity: 1
+total sparse params: 18
+Epoch 19/100, Loss: 0.0720700393520248
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 8, fc2 sparsity: 7, fc3 sparsity: 0
+total sparse params: 15
+Epoch 20/100, Loss: 0.06832912252910102
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 7, fc2 sparsity: 4, fc3 sparsity: 0
+total sparse params: 11
+Epoch 21/100, Loss: 0.035145642886212324
+(0.0010363520408163266, 13, 12544)
+fc1 sparsity: 30, fc2 sparsity: 43, fc3 sparsity: 7
+total sparse params: 80
+Epoch 22/100, Loss: 0.03387216153566533
+(0.0007971938775510204, 10, 12544)
+fc1 sparsity: 34, fc2 sparsity: 32, fc3 sparsity: 6
+total sparse params: 72
+Epoch 23/100, Loss: 0.03310577168282288
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 17, fc2 sparsity: 15, fc3 sparsity: 3
+total sparse params: 35
+Epoch 24/100, Loss: 0.031189167090177314
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 11, fc2 sparsity: 9, fc3 sparsity: 2
+total sparse params: 22
+Epoch 25/100, Loss: 0.030048830860129584
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 9, fc2 sparsity: 11, fc3 sparsity: 2
+total sparse params: 22
+Epoch 26/100, Loss: 0.028503153699019283
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 9, fc2 sparsity: 9, fc3 sparsity: 1
+total sparse params: 19
+Epoch 27/100, Loss: 0.02804889777518396
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 12, fc2 sparsity: 6, fc3 sparsity: 0
+total sparse params: 18
+Epoch 28/100, Loss: 0.026717007500745023
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 0, fc2 sparsity: 6, fc3 sparsity: 1
+total sparse params: 7
+Epoch 29/100, Loss: 0.026507036270462532
+(0.0, 0, 12544)
+fc1 sparsity: 4, fc2 sparsity: 9, fc3 sparsity: 2
+total sparse params: 15
+Epoch 30/100, Loss: 0.026277154849877936
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 13, fc2 sparsity: 7, fc3 sparsity: 2
+total sparse params: 22
+Epoch 31/100, Loss: 0.024784561635842965
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 13, fc2 sparsity: 4, fc3 sparsity: 2
+total sparse params: 19
+Epoch 32/100, Loss: 0.0244242790679354
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 7, fc2 sparsity: 9, fc3 sparsity: 0
+total sparse params: 16
+Epoch 33/100, Loss: 0.022515422806068303
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 6, fc2 sparsity: 6, fc3 sparsity: 1
+total sparse params: 13
+Epoch 34/100, Loss: 0.02280896496095224
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 12, fc2 sparsity: 7, fc3 sparsity: 0
+total sparse params: 19
+Epoch 35/100, Loss: 0.02297425223017997
+(0.0, 0, 12544)
+fc1 sparsity: 7, fc2 sparsity: 5, fc3 sparsity: 1
+total sparse params: 13
+Epoch 36/100, Loss: 0.020561891702263912
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 9, fc2 sparsity: 7, fc3 sparsity: 2
+total sparse params: 18
+Epoch 37/100, Loss: 0.02145819276420356
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 6, fc2 sparsity: 2, fc3 sparsity: 3
+total sparse params: 11
+Epoch 38/100, Loss: 0.020804613856956172
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 5, fc2 sparsity: 7, fc3 sparsity: 2
+total sparse params: 14
+Epoch 39/100, Loss: 0.02050722246594441
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 5, fc2 sparsity: 2, fc3 sparsity: 1
+total sparse params: 8
+Epoch 40/100, Loss: 0.01977496460995583
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 7, fc2 sparsity: 9, fc3 sparsity: 2
+total sparse params: 18
+Epoch 41/100, Loss: 0.01591836814301958
+(0.0006377551020408163, 8, 12544)
+fc1 sparsity: 40, fc2 sparsity: 36, fc3 sparsity: 5
+total sparse params: 81
+Epoch 42/100, Loss: 0.014269249059843458
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 22, fc2 sparsity: 25, fc3 sparsity: 5
+total sparse params: 52
+Epoch 43/100, Loss: 0.014377638110583192
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 14, fc2 sparsity: 18, fc3 sparsity: 0
+total sparse params: 32
+Epoch 44/100, Loss: 0.014043993893889155
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 14, fc2 sparsity: 11, fc3 sparsity: 0
+total sparse params: 25
+Epoch 45/100, Loss: 0.012855832951380682
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 12, fc2 sparsity: 8, fc3 sparsity: 2
+total sparse params: 22
+Epoch 46/100, Loss: 0.012944633118385798
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 6, fc2 sparsity: 11, fc3 sparsity: 0
+total sparse params: 17
+Epoch 47/100, Loss: 0.01256764057579625
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 11, fc2 sparsity: 5, fc3 sparsity: 1
+total sparse params: 17
+Epoch 48/100, Loss: 0.01165068972100472
+(0.0, 0, 12544)
+fc1 sparsity: 7, fc2 sparsity: 6, fc3 sparsity: 2
+total sparse params: 15
+Epoch 49/100, Loss: 0.012877317738837437
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 5, fc2 sparsity: 6, fc3 sparsity: 0
+total sparse params: 11
+Epoch 50/100, Loss: 0.012651558153391846
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 11, fc2 sparsity: 6, fc3 sparsity: 1
+total sparse params: 18
+Epoch 51/100, Loss: 0.011527675903836158
+(0.0, 0, 12544)
+fc1 sparsity: 6, fc2 sparsity: 2, fc3 sparsity: 0
+total sparse params: 8
+Epoch 52/100, Loss: 0.011469664949134909
+(0.0, 0, 12544)
+fc1 sparsity: 5, fc2 sparsity: 6, fc3 sparsity: 0
+total sparse params: 11
+Epoch 53/100, Loss: 0.01134007141672458
+(0.0, 0, 12544)
+fc1 sparsity: 6, fc2 sparsity: 4, fc3 sparsity: 1
+total sparse params: 11
+Epoch 54/100, Loss: 0.010267063978064591
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 7, fc2 sparsity: 6, fc3 sparsity: 0
+total sparse params: 13
+Epoch 55/100, Loss: 0.010098492149199082
+(0.0, 0, 12544)
+fc1 sparsity: 2, fc2 sparsity: 5, fc3 sparsity: 1
+total sparse params: 8
+Epoch 56/100, Loss: 0.010806238525353475
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 6, fc2 sparsity: 4, fc3 sparsity: 2
+total sparse params: 12
+Epoch 57/100, Loss: 0.009455482911768813
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 6, fc2 sparsity: 10, fc3 sparsity: 1
+total sparse params: 17
+Epoch 58/100, Loss: 0.00893455798807703
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 5, fc2 sparsity: 5, fc3 sparsity: 2
+total sparse params: 12
+Epoch 59/100, Loss: 0.010122602243958882
+(0.00047831632653061223, 6, 12544)
+fc1 sparsity: 3, fc2 sparsity: 7, fc3 sparsity: 1
+total sparse params: 11
+Epoch 60/100, Loss: 0.010343945586680572
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 6, fc2 sparsity: 6, fc3 sparsity: 0
+total sparse params: 12
+Epoch 61/100, Loss: 0.008374709003302089
+(0.0009566326530612245, 12, 12544)
+fc1 sparsity: 33, fc2 sparsity: 35, fc3 sparsity: 7
+total sparse params: 75
+Epoch 62/100, Loss: 0.008172568520385073
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 22, fc2 sparsity: 22, fc3 sparsity: 2
+total sparse params: 46
+Epoch 63/100, Loss: 0.008787322454069477
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 14, fc2 sparsity: 18, fc3 sparsity: 3
+total sparse params: 35
+Epoch 64/100, Loss: 0.009768184692546629
+(0.0007971938775510204, 10, 12544)
+fc1 sparsity: 31, fc2 sparsity: 22, fc3 sparsity: 6
+total sparse params: 59
+Epoch 65/100, Loss: 0.00817196101675913
+(0.0009566326530612245, 12, 12544)
+fc1 sparsity: 25, fc2 sparsity: 22, fc3 sparsity: 8
+total sparse params: 55
+Epoch 66/100, Loss: 0.00714183034011388
+(0.0007174744897959184, 9, 12544)
+fc1 sparsity: 25, fc2 sparsity: 23, fc3 sparsity: 6
+total sparse params: 54
+Epoch 67/100, Loss: 0.008692352377980174
+(0.0009566326530612245, 12, 12544)
+fc1 sparsity: 27, fc2 sparsity: 24, fc3 sparsity: 7
+total sparse params: 58
+Epoch 68/100, Loss: 0.006737593168462652
+(0.00047831632653061223, 6, 12544)
+fc1 sparsity: 13, fc2 sparsity: 17, fc3 sparsity: 9
+total sparse params: 39
+Epoch 69/100, Loss: 0.008433369038847964
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 8, fc2 sparsity: 18, fc3 sparsity: 7
+total sparse params: 33
+Epoch 70/100, Loss: 0.0068746451188708155
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 17, fc2 sparsity: 18, fc3 sparsity: 7
+total sparse params: 42
+Epoch 71/100, Loss: 0.007504140796226217
+(0.0006377551020408163, 8, 12544)
+fc1 sparsity: 32, fc2 sparsity: 28, fc3 sparsity: 6
+total sparse params: 66
+Epoch 72/100, Loss: 0.0070475870030225944
+(0.0011160714285714285, 14, 12544)
+fc1 sparsity: 24, fc2 sparsity: 28, fc3 sparsity: 5
+total sparse params: 57
+Epoch 73/100, Loss: 0.007273210337792182
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 21, fc2 sparsity: 13, fc3 sparsity: 5
+total sparse params: 39
+Epoch 74/100, Loss: 0.0062886837667955366
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 19, fc2 sparsity: 22, fc3 sparsity: 3
+total sparse params: 44
+Epoch 75/100, Loss: 0.0065414664491663934
+(0.0005580357142857143, 7, 12544)
+fc1 sparsity: 17, fc2 sparsity: 19, fc3 sparsity: 6
+total sparse params: 42
+Epoch 76/100, Loss: 0.007724212876008538
+(0.0005580357142857143, 7, 12544)
+fc1 sparsity: 15, fc2 sparsity: 22, fc3 sparsity: 11
+total sparse params: 48
+Epoch 77/100, Loss: 0.006487341499334496
+(0.00047831632653061223, 6, 12544)
+fc1 sparsity: 24, fc2 sparsity: 15, fc3 sparsity: 7
+total sparse params: 46
+Epoch 78/100, Loss: 0.007558003843713019
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 13, fc2 sparsity: 14, fc3 sparsity: 4
+total sparse params: 31
+Epoch 79/100, Loss: 0.005948704042510296
+(0.0006377551020408163, 8, 12544)
+fc1 sparsity: 22, fc2 sparsity: 28, fc3 sparsity: 9
+total sparse params: 59
+Epoch 80/100, Loss: 0.006930790873103416
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 19, fc2 sparsity: 26, fc3 sparsity: 6
+total sparse params: 51
+Epoch 81/100, Loss: 0.004805875932880808
+(0.0029496173469387753, 37, 12544)
+fc1 sparsity: 62, fc2 sparsity: 52, fc3 sparsity: 10
+total sparse params: 124
+Epoch 82/100, Loss: 0.007388587982662631
+(0.0012755102040816326, 16, 12544)
+fc1 sparsity: 48, fc2 sparsity: 39, fc3 sparsity: 8
+total sparse params: 95
+Epoch 83/100, Loss: 0.0050125260335827605
+(0.0016741071428571428, 21, 12544)
+fc1 sparsity: 41, fc2 sparsity: 35, fc3 sparsity: 9
+total sparse params: 85
+Epoch 84/100, Loss: 0.005951114540355363
+(0.0010363520408163266, 13, 12544)
+fc1 sparsity: 21, fc2 sparsity: 29, fc3 sparsity: 7
+total sparse params: 57
+Epoch 85/100, Loss: 0.006889477472106285
+(0.0007174744897959184, 9, 12544)
+fc1 sparsity: 9, fc2 sparsity: 26, fc3 sparsity: 8
+total sparse params: 43
+Epoch 86/100, Loss: 0.005077285173298841
+(0.0031887755102040817, 40, 12544)
+fc1 sparsity: 34, fc2 sparsity: 42, fc3 sparsity: 13
+total sparse params: 89
+Epoch 87/100, Loss: 0.005444411334646264
+(0.001833545918367347, 23, 12544)
+fc1 sparsity: 25, fc2 sparsity: 29, fc3 sparsity: 10
+total sparse params: 64
+Epoch 88/100, Loss: 0.0056647483876146685
+(0.002311862244897959, 29, 12544)
+fc1 sparsity: 40, fc2 sparsity: 35, fc3 sparsity: 10
+total sparse params: 85
+Epoch 89/100, Loss: 0.00622785185605375
+(0.0013552295918367347, 17, 12544)
+fc1 sparsity: 47, fc2 sparsity: 37, fc3 sparsity: 10
+total sparse params: 94
+Epoch 90/100, Loss: 0.005411139952890165
+(0.0007971938775510204, 10, 12544)
+fc1 sparsity: 44, fc2 sparsity: 32, fc3 sparsity: 10
+total sparse params: 86
+Epoch 91/100, Loss: 0.00461030432298396
+(0.0015146683673469387, 19, 12544)
+fc1 sparsity: 37, fc2 sparsity: 36, fc3 sparsity: 7
+total sparse params: 80
+Epoch 92/100, Loss: 0.005941904504000906
+(0.0011957908163265306, 15, 12544)
+fc1 sparsity: 28, fc2 sparsity: 21, fc3 sparsity: 4
+total sparse params: 53
+Epoch 93/100, Loss: 0.005537755133421658
+(0.0009566326530612245, 12, 12544)
+fc1 sparsity: 16, fc2 sparsity: 22, fc3 sparsity: 6
+total sparse params: 44
+Epoch 94/100, Loss: 0.00467030039539098
+(0.0007971938775510204, 10, 12544)
+fc1 sparsity: 12, fc2 sparsity: 24, fc3 sparsity: 10
+total sparse params: 46
+Epoch 95/100, Loss: 0.006000910486700319
+(0.0006377551020408163, 8, 12544)
+fc1 sparsity: 14, fc2 sparsity: 28, fc3 sparsity: 9
+total sparse params: 51
+Epoch 96/100, Loss: 0.003763678500832914
+(0.0027901785714285715, 35, 12544)
+fc1 sparsity: 57, fc2 sparsity: 47, fc3 sparsity: 14
+total sparse params: 118
+Epoch 97/100, Loss: 0.006072296810475903
+(0.002311862244897959, 29, 12544)
+fc1 sparsity: 43, fc2 sparsity: 33, fc3 sparsity: 9
+total sparse params: 85
+Epoch 98/100, Loss: 0.0032763132955051237
+(0.0014349489795918368, 18, 12544)
+fc1 sparsity: 34, fc2 sparsity: 38, fc3 sparsity: 9
+total sparse params: 81
+Epoch 99/100, Loss: 0.006821562235060727
+(0.0010363520408163266, 13, 12544)
+fc1 sparsity: 22, fc2 sparsity: 20, fc3 sparsity: 5
+total sparse params: 47
+Epoch 100/100, Loss: 0.003579729396961314
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 14, fc2 sparsity: 15, fc3 sparsity: 3
+total sparse params: 32
+Accuracy: 98.72000122070312
+None
+Epoch 1/100, Loss: 1.9241267990455952
+(0.0, 0, 12544)
+fc1 sparsity: 0, fc2 sparsity: 4, fc3 sparsity: 0
+total sparse params: 4
+Epoch 2/100, Loss: 0.7718556048964132
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 2, fc2 sparsity: 5, fc3 sparsity: 1
+total sparse params: 8
+Epoch 3/100, Loss: 0.4603090604612314
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 5, fc2 sparsity: 8, fc3 sparsity: 1
+total sparse params: 14
+Epoch 4/100, Loss: 0.33463776467451406
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 8, fc2 sparsity: 4, fc3 sparsity: 1
+total sparse params: 13
+Epoch 5/100, Loss: 0.2711722767238678
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 6, fc2 sparsity: 9, fc3 sparsity: 1
+total sparse params: 16
+Epoch 6/100, Loss: 0.23078114475840444
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 10, fc2 sparsity: 11, fc3 sparsity: 1
+total sparse params: 22
+Epoch 7/100, Loss: 0.20192318779827434
+(0.0, 0, 12544)
+fc1 sparsity: 4, fc2 sparsity: 8, fc3 sparsity: 1
+total sparse params: 13
+Epoch 8/100, Loss: 0.17865602044599144
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 6, fc2 sparsity: 8, fc3 sparsity: 1
+total sparse params: 15
+Epoch 9/100, Loss: 0.15976412556986055
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 6, fc2 sparsity: 7, fc3 sparsity: 1
+total sparse params: 14
+Epoch 10/100, Loss: 0.14441018997193145
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 6, fc2 sparsity: 8, fc3 sparsity: 0
+total sparse params: 14
+Epoch 11/100, Loss: 0.13176504125409544
+(0.0, 0, 12544)
+fc1 sparsity: 12, fc2 sparsity: 7, fc3 sparsity: 3
+total sparse params: 22
+Epoch 12/100, Loss: 0.12087276425442971
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 11, fc2 sparsity: 4, fc3 sparsity: 3
+total sparse params: 18
+Epoch 13/100, Loss: 0.1109712996017704
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 4, fc2 sparsity: 5, fc3 sparsity: 1
+total sparse params: 10
+Epoch 14/100, Loss: 0.10465234865162418
+(0.0, 0, 12544)
+fc1 sparsity: 7, fc2 sparsity: 2, fc3 sparsity: 1
+total sparse params: 10
+Epoch 15/100, Loss: 0.09637202573880585
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 8, fc2 sparsity: 6, fc3 sparsity: 3
+total sparse params: 17
+Epoch 16/100, Loss: 0.08966573909608158
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 12, fc2 sparsity: 15, fc3 sparsity: 1
+total sparse params: 28
+Epoch 17/100, Loss: 0.0856867532478149
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 10, fc2 sparsity: 12, fc3 sparsity: 2
+total sparse params: 24
+Epoch 18/100, Loss: 0.08021921049287198
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 8, fc2 sparsity: 8, fc3 sparsity: 1
+total sparse params: 17
+Epoch 19/100, Loss: 0.07672342438814736
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 9, fc2 sparsity: 10, fc3 sparsity: 1
+total sparse params: 20
+Epoch 20/100, Loss: 0.07376392732169837
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 11, fc2 sparsity: 9, fc3 sparsity: 2
+total sparse params: 22
+Epoch 21/100, Loss: 0.03833548518132045
+(0.0006377551020408163, 8, 12544)
+fc1 sparsity: 36, fc2 sparsity: 37, fc3 sparsity: 6
+total sparse params: 79
+Epoch 22/100, Loss: 0.03635520008859286
+(0.0005580357142857143, 7, 12544)
+fc1 sparsity: 27, fc2 sparsity: 22, fc3 sparsity: 3
+total sparse params: 52
+Epoch 23/100, Loss: 0.034725418693121915
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 17, fc2 sparsity: 11, fc3 sparsity: 2
+total sparse params: 30
+Epoch 24/100, Loss: 0.03358300372279052
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 14, fc2 sparsity: 12, fc3 sparsity: 2
+total sparse params: 28
+Epoch 25/100, Loss: 0.03317260243959709
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 13, fc2 sparsity: 7, fc3 sparsity: 3
+total sparse params: 23
+Epoch 26/100, Loss: 0.031437602655183694
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 13, fc2 sparsity: 12, fc3 sparsity: 4
+total sparse params: 29
+Epoch 27/100, Loss: 0.02942630527779333
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 8, fc2 sparsity: 19, fc3 sparsity: 2
+total sparse params: 29
+Epoch 28/100, Loss: 0.02938533462246439
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 6, fc2 sparsity: 9, fc3 sparsity: 1
+total sparse params: 16
+Epoch 29/100, Loss: 0.029000024809670854
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 7, fc2 sparsity: 12, fc3 sparsity: 2
+total sparse params: 21
+Epoch 30/100, Loss: 0.028067685166266617
+(0.0, 0, 12544)
+fc1 sparsity: 10, fc2 sparsity: 16, fc3 sparsity: 4
+total sparse params: 30
+Epoch 31/100, Loss: 0.02730878814657741
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 7, fc2 sparsity: 8, fc3 sparsity: 1
+total sparse params: 16
+Epoch 32/100, Loss: 0.02650214598994694
+(0.0, 0, 12544)
+fc1 sparsity: 7, fc2 sparsity: 8, fc3 sparsity: 0
+total sparse params: 15
+Epoch 33/100, Loss: 0.025419758811001298
+(0.0, 0, 12544)
+fc1 sparsity: 6, fc2 sparsity: 5, fc3 sparsity: 2
+total sparse params: 13
+Epoch 34/100, Loss: 0.024535824333244104
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 9, fc2 sparsity: 11, fc3 sparsity: 0
+total sparse params: 20
+Epoch 35/100, Loss: 0.024550790506313796
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 10, fc2 sparsity: 3, fc3 sparsity: 5
+total sparse params: 18
+Epoch 36/100, Loss: 0.023251598290324624
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 8, fc2 sparsity: 10, fc3 sparsity: 1
+total sparse params: 19
+Epoch 37/100, Loss: 0.023709364808293613
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 7, fc2 sparsity: 13, fc3 sparsity: 1
+total sparse params: 21
+Epoch 38/100, Loss: 0.022961557787686174
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 9, fc2 sparsity: 10, fc3 sparsity: 2
+total sparse params: 21
+Epoch 39/100, Loss: 0.02173390570801617
+(0.0, 0, 12544)
+fc1 sparsity: 3, fc2 sparsity: 14, fc3 sparsity: 3
+total sparse params: 20
+Epoch 40/100, Loss: 0.021922829315197397
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 8, fc2 sparsity: 14, fc3 sparsity: 1
+total sparse params: 23
+Epoch 41/100, Loss: 0.017504094422224965
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 40, fc2 sparsity: 33, fc3 sparsity: 4
+total sparse params: 77
+Epoch 42/100, Loss: 0.017744785181243224
+(0.00031887755102040814, 4, 12544)
+fc1 sparsity: 24, fc2 sparsity: 27, fc3 sparsity: 4
+total sparse params: 55
+Epoch 43/100, Loss: 0.01569121479778352
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 14, fc2 sparsity: 11, fc3 sparsity: 3
+total sparse params: 28
+Epoch 44/100, Loss: 0.015796484874073924
+(0.0, 0, 12544)
+fc1 sparsity: 14, fc2 sparsity: 14, fc3 sparsity: 3
+total sparse params: 31
+Epoch 45/100, Loss: 0.015770226173454832
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 9, fc2 sparsity: 6, fc3 sparsity: 3
+total sparse params: 18
+Epoch 46/100, Loss: 0.015624852611500619
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 5, fc2 sparsity: 16, fc3 sparsity: 0
+total sparse params: 21
+Epoch 47/100, Loss: 0.01413980397356819
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 9, fc2 sparsity: 15, fc3 sparsity: 0
+total sparse params: 24
+Epoch 48/100, Loss: 0.014711638868127121
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 8, fc2 sparsity: 12, fc3 sparsity: 1
+total sparse params: 21
+Epoch 49/100, Loss: 0.013553173893053374
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 15, fc2 sparsity: 16, fc3 sparsity: 1
+total sparse params: 32
+Epoch 50/100, Loss: 0.01381182694683042
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 6, fc2 sparsity: 16, fc3 sparsity: 1
+total sparse params: 23
+Epoch 51/100, Loss: 0.014139791424604637
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 9, fc2 sparsity: 8, fc3 sparsity: 1
+total sparse params: 18
+Epoch 52/100, Loss: 0.01185683790227718
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 11, fc2 sparsity: 10, fc3 sparsity: 2
+total sparse params: 23
+Epoch 53/100, Loss: 0.012947564306264338
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 7, fc2 sparsity: 8, fc3 sparsity: 2
+total sparse params: 17
+Epoch 54/100, Loss: 0.01182076111542625
+(7.971938775510203e-05, 1, 12544)
+fc1 sparsity: 6, fc2 sparsity: 11, fc3 sparsity: 1
+total sparse params: 18
+Epoch 55/100, Loss: 0.013275216580919628
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 5, fc2 sparsity: 9, fc3 sparsity: 1
+total sparse params: 15
+Epoch 56/100, Loss: 0.012275153955470509
+(0.0, 0, 12544)
+fc1 sparsity: 10, fc2 sparsity: 9, fc3 sparsity: 0
+total sparse params: 19
+Epoch 57/100, Loss: 0.011607389992548784
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 5, fc2 sparsity: 8, fc3 sparsity: 0
+total sparse params: 13
+Epoch 58/100, Loss: 0.011307766327626013
+(0.00023915816326530612, 3, 12544)
+fc1 sparsity: 14, fc2 sparsity: 10, fc3 sparsity: 1
+total sparse params: 25
+Epoch 59/100, Loss: 0.010335275531572196
+(0.0, 0, 12544)
+fc1 sparsity: 6, fc2 sparsity: 5, fc3 sparsity: 1
+total sparse params: 12
+Epoch 60/100, Loss: 0.011239809905494582
+(0.0, 0, 12544)
+fc1 sparsity: 4, fc2 sparsity: 5, fc3 sparsity: 0
+total sparse params: 9
+Epoch 61/100, Loss: 0.011417189001222452
+(0.0013552295918367347, 17, 12544)
+fc1 sparsity: 38, fc2 sparsity: 40, fc3 sparsity: 8
+total sparse params: 86
+Epoch 62/100, Loss: 0.008729345372394979
+(0.0007971938775510204, 10, 12544)
+fc1 sparsity: 35, fc2 sparsity: 29, fc3 sparsity: 5
+total sparse params: 69
+Epoch 63/100, Loss: 0.0097775066183213
+(0.0006377551020408163, 8, 12544)
+fc1 sparsity: 19, fc2 sparsity: 23, fc3 sparsity: 6
+total sparse params: 48
+Epoch 64/100, Loss: 0.009995123669803915
+(0.00015943877551020407, 2, 12544)
+fc1 sparsity: 20, fc2 sparsity: 22, fc3 sparsity: 7
+total sparse params: 49
+Epoch 65/100, Loss: 0.008513511537798809
+(0.00047831632653061223, 6, 12544)
+fc1 sparsity: 21, fc2 sparsity: 30, fc3 sparsity: 5
+total sparse params: 56
+Epoch 66/100, Loss: 0.009297750773765961
+(0.0009566326530612245, 12, 12544)
+fc1 sparsity: 34, fc2 sparsity: 28, fc3 sparsity: 9
+total sparse params: 71
+Epoch 67/100, Loss: 0.008469550643392505
+(0.0008769132653061224, 11, 12544)
+fc1 sparsity: 30, fc2 sparsity: 28, fc3 sparsity: 3
+total sparse params: 61
+Epoch 68/100, Loss: 0.01021674733789014
+(0.0006377551020408163, 8, 12544)
+fc1 sparsity: 26, fc2 sparsity: 17, fc3 sparsity: 5
+total sparse params: 48
+Epoch 69/100, Loss: 0.009085249146234358
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 18, fc2 sparsity: 24, fc3 sparsity: 2
+total sparse params: 44
+Epoch 70/100, Loss: 0.008856349608085904
+(0.00047831632653061223, 6, 12544)
+fc1 sparsity: 18, fc2 sparsity: 25, fc3 sparsity: 6
+total sparse params: 49
+Epoch 71/100, Loss: 0.007859679858330816
+(0.0006377551020408163, 8, 12544)
+fc1 sparsity: 40, fc2 sparsity: 30, fc3 sparsity: 5
+total sparse params: 75
+Epoch 72/100, Loss: 0.009982297958780155
+(0.0007971938775510204, 10, 12544)
+fc1 sparsity: 30, fc2 sparsity: 23, fc3 sparsity: 4
+total sparse params: 57
+Epoch 73/100, Loss: 0.008486309871296591
+(0.0005580357142857143, 7, 12544)
+fc1 sparsity: 28, fc2 sparsity: 28, fc3 sparsity: 7
+total sparse params: 63
+Epoch 74/100, Loss: 0.008157874075022884
+(0.0010363520408163266, 13, 12544)
+fc1 sparsity: 20, fc2 sparsity: 24, fc3 sparsity: 7
+total sparse params: 51
+Epoch 75/100, Loss: 0.007736854767851926
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 15, fc2 sparsity: 22, fc3 sparsity: 7
+total sparse params: 44
+Epoch 76/100, Loss: 0.009767135749323426
+(0.0007971938775510204, 10, 12544)
+fc1 sparsity: 30, fc2 sparsity: 24, fc3 sparsity: 4
+total sparse params: 58
+Epoch 77/100, Loss: 0.006126831506602595
+(0.0006377551020408163, 8, 12544)
+fc1 sparsity: 20, fc2 sparsity: 17, fc3 sparsity: 5
+total sparse params: 42
+Epoch 78/100, Loss: 0.009039946876077872
+(0.0003985969387755102, 5, 12544)
+fc1 sparsity: 29, fc2 sparsity: 26, fc3 sparsity: 4
+total sparse params: 59
+Epoch 79/100, Loss: 0.007243508891390723
+(0.0007971938775510204, 10, 12544)
+fc1 sparsity: 34, fc2 sparsity: 31, fc3 sparsity: 7
+total sparse params: 72
+Epoch 80/100, Loss: 0.008030492752535218
+(0.0006377551020408163, 8, 12544)
+fc1 sparsity: 33, fc2 sparsity: 31, fc3 sparsity: 4
+total sparse params: 68
+Epoch 81/100, Loss: 0.008123164055582095
+(0.0028698979591836736, 36, 12544)
+fc1 sparsity: 47, fc2 sparsity: 53, fc3 sparsity: 12
+total sparse params: 112
+Epoch 82/100, Loss: 0.005084387109339958
+(0.001992984693877551, 25, 12544)
+fc1 sparsity: 42, fc2 sparsity: 50, fc3 sparsity: 12
+total sparse params: 104
+Epoch 83/100, Loss: 0.00813676606113115
+(0.0007971938775510204, 10, 12544)
+fc1 sparsity: 32, fc2 sparsity: 31, fc3 sparsity: 7
+total sparse params: 70
+Epoch 84/100, Loss: 0.007764967632381445
+(0.0015943877551020409, 20, 12544)
+fc1 sparsity: 27, fc2 sparsity: 24, fc3 sparsity: 8
+total sparse params: 59
+Epoch 85/100, Loss: 0.006185266902674926
+(0.0012755102040816326, 16, 12544)
+fc1 sparsity: 22, fc2 sparsity: 25, fc3 sparsity: 7
+total sparse params: 54
+Epoch 86/100, Loss: 0.007105255993497764
+(0.005899234693877551, 74, 12544)
+fc1 sparsity: 60, fc2 sparsity: 55, fc3 sparsity: 14
+total sparse params: 129
+Epoch 87/100, Loss: 0.005612635918860295
+(0.003985969387755102, 50, 12544)
+fc1 sparsity: 63, fc2 sparsity: 50, fc3 sparsity: 14
+total sparse params: 127
+Epoch 88/100, Loss: 0.008599339685943225
+(0.002152423469387755, 27, 12544)
+fc1 sparsity: 53, fc2 sparsity: 42, fc3 sparsity: 12
+total sparse params: 107
+Epoch 89/100, Loss: 0.005857589573900505
+(0.0012755102040816326, 16, 12544)
+fc1 sparsity: 34, fc2 sparsity: 30, fc3 sparsity: 8
+total sparse params: 72
+Epoch 90/100, Loss: 0.007073514035756645
+(0.0016741071428571428, 21, 12544)
+fc1 sparsity: 32, fc2 sparsity: 32, fc3 sparsity: 10
+total sparse params: 74
+Epoch 91/100, Loss: 0.00672166554815523
+(0.0023915816326530613, 30, 12544)
+fc1 sparsity: 45, fc2 sparsity: 43, fc3 sparsity: 10
+total sparse params: 98
+Epoch 92/100, Loss: 0.006801101300020404
+(0.002152423469387755, 27, 12544)
+fc1 sparsity: 39, fc2 sparsity: 36, fc3 sparsity: 11
+total sparse params: 86
+Epoch 93/100, Loss: 0.005214729051864209
+(0.0014349489795918368, 18, 12544)
+fc1 sparsity: 34, fc2 sparsity: 25, fc3 sparsity: 8
+total sparse params: 67
+Epoch 94/100, Loss: 0.007291501634243566
+(0.0010363520408163266, 13, 12544)
+fc1 sparsity: 22, fc2 sparsity: 20, fc3 sparsity: 4
+total sparse params: 46
+Epoch 95/100, Loss: 0.004964803069443601
+(0.0005580357142857143, 7, 12544)
+fc1 sparsity: 16, fc2 sparsity: 19, fc3 sparsity: 2
+total sparse params: 37
+Epoch 96/100, Loss: 0.0071825642110215915
+(0.00350765306122449, 44, 12544)
+fc1 sparsity: 57, fc2 sparsity: 42, fc3 sparsity: 8
+total sparse params: 107
+Epoch 97/100, Loss: 0.005074357691121073
+(0.0028698979591836736, 36, 12544)
+fc1 sparsity: 52, fc2 sparsity: 42, fc3 sparsity: 10
+total sparse params: 104
+Epoch 98/100, Loss: 0.006584090713139241
+(0.0013552295918367347, 17, 12544)
+fc1 sparsity: 39, fc2 sparsity: 32, fc3 sparsity: 8
+total sparse params: 79
+Epoch 99/100, Loss: 0.005083171891410607
+(0.001913265306122449, 24, 12544)
+fc1 sparsity: 33, fc2 sparsity: 37, fc3 sparsity: 13
+total sparse params: 83
+Epoch 100/100, Loss: 0.005898186687336653
+(0.0009566326530612245, 12, 12544)
+fc1 sparsity: 19, fc2 sparsity: 31, fc3 sparsity: 9
+total sparse params: 59
+Accuracy: 98.77999877929688
+None
