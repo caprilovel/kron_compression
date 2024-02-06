@@ -188,28 +188,18 @@ def calculate_sparsity(model, threshold=1e-6):
 
 from global_utils.torch_utils.log_utils import train_log
 @train_log()
-def train(model, train_loader, criterion, optimizer, epochs, l1_weight=0.01, thresold=1e-1):
+def train(model, train_loader, criterion, optimizer, epochs, l1_weight=0.01, thresold=1e-4):
     
     i_time = time()
     decay_weight = [1, 0.1, 0.01, 0.001, 0.0001]
     weight1 = l1_weight
-    # mask1 = torch.ones_like(model.kronfc1.s)
-    # mask2 = torch.ones_like(model.kronfc2.s)
-    # mask3 = torch.ones_like(model.kronfc3.s)
+    mask1 = torch.ones_like(model.kronfc1.s)
+    mask2 = torch.ones_like(model.kronfc2.s)
+    mask3 = torch.ones_like(model.kronfc3.s)
     thresold = thresold
-    # mask1, mask2, mask3 = mask1.to(device), mask2.to(device), mask3.to(device)    
+    mask1, mask2, mask3 = mask1.to(device), mask2.to(device), mask3.to(device)    
     for epoch in range(epochs):
-        # if epoch % 5 == 0:
-            # mask1 = mask1 * (torch.abs(model.kronfc1.s) > thresold).float()
-            # model.kronfc1.s.data = model.kronfc1.s.data * mask1
-            # mask2 = mask2 * (torch.abs(model.kronfc2.s) > thresold).float()
-            # model.kronfc2.s.data = model.kronfc2.s.data * mask2
-            # mask3 = mask3 * (torch.abs(model.kronfc3.s) > thresold).float()
-            # model.kronfc3.s.data = model.kronfc3.s.data * mask3
-            # # if mask have 0 in any position, print mask 
-            # print(model.kronfc1.s.data)
-            # print(model.kronfc2.s.data)
-            # print(model.kronfc3.s.data)
+        
         running_loss = 0.0
         l1_weight = decay_weight[epoch//20] * weight1
         for inputs, labels in train_loader:
@@ -226,6 +216,17 @@ def train(model, train_loader, criterion, optimizer, epochs, l1_weight=0.01, thr
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
+        if epoch % 5 == 0:
+            mask1 = mask1 * (torch.abs(model.kronfc1.s) > thresold).float()
+            model.kronfc1.s.data = model.kronfc1.s.data * mask1
+            mask2 = mask2 * (torch.abs(model.kronfc2.s) > thresold).float()
+            model.kronfc2.s.data = model.kronfc2.s.data * mask2
+            mask3 = mask3 * (torch.abs(model.kronfc3.s) > thresold).float()
+            model.kronfc3.s.data = model.kronfc3.s.data * mask3
+            # # if mask have 0 in any position, print mask 
+            # print(model.kronfc1.s.data)
+            # print(model.kronfc2.s.data)
+            # print(model.kronfc3.s.data)
         print(f"Epoch {epoch + 1}/{epochs}, Loss: {running_loss/len(train_loader)}")
         # print the sparsity of a, dont use == use the abs less than 1e-5
 

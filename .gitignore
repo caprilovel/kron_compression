@@ -2,3 +2,5 @@ log/*
 data/*
 model_save/*
 *.pyc
+*-workspace
+*.txt

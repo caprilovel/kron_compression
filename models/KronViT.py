@@ -35,37 +35,40 @@ class KronMLP(nn.Module):
         self.net = nn.Sequential(
             KronLinear(rank, (in_a, out_a), (in_b, out_b)),
             nn.GELU(),
-            KronLinear(rank, (in_b, out_b), (in_a, out_a))
+            KronLinear(rank, (out_a, in_a), (out_b, in_b))
         )
-
-class KronFeedForward(nn.Module):
-    def __init__(self, dim, hidden_dim, drop_out = 0.):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.LayerNorm(dim),
-            KronMLP(dim, hidden_dim, drop_out),
-            nn.GELU(),
-            nn.Dropout(drop_out),
-            KronMLP(hidden_dim, dim, drop_out),
-            nn.Dropout(drop_out)
-        )
-    
-    
-    
-class FeedForward(nn.Module):
-    def __init__(self, dim, hidden_dim, dropout = 0.):
-        super().__init__()
-        self.net = nn.Sequential(
-            nn.LayerNorm(dim),
-            nn.Linear(dim, hidden_dim),
-            nn.GELU(),
-            nn.Dropout(dropout),
-            nn.Linear(hidden_dim, dim),
-            nn.Dropout(dropout)
-        )
-
+        
     def forward(self, x):
         return self.net(x)
+
+class KronFeedForward(nn.Module):
+    def __init__(self, dim, hidden_dim, dropout=0., dim_factor=0, hidden_dim_factor=0, rank=10):
+        super().__init__()
+        if dim_factor == 0:
+            dim_factor = factorize(dim)
+        self.dim_factor = dim_factor
+        
+        if hidden_dim_factor == 0:
+            hidden_dim_factor = factorize(hidden_dim)
+        self.hidden_dim_factor = hidden_dim_factor
+        
+        in_a, in_b = dim_factor
+        out_a, out_b = hidden_dim_factor
+        
+        self.net = nn.Sequential(
+            nn.LayerNorm(dim),
+            KronLinear(rank, (in_a, out_a), (in_b, out_b)),
+            nn.GELU(),
+            nn.Dropout(dropout),
+            KronLinear(rank, (out_a, in_a), (out_b, in_b)),
+            nn.Dropout(dropout)
+        )
+        
+    def forward(self, x):
+        return self.net(x)
+    
+    
+ 
 
 class Attention(nn.Module):
     def __init__(self, dim, heads = 8, dim_head = 64, dropout = 0.):
@@ -111,7 +114,7 @@ class Transformer(nn.Module):
         for _ in range(depth):
             self.layers.append(nn.ModuleList([
                 Attention(dim, heads = heads, dim_head = dim_head, dropout = dropout),
-                FeedForward(dim, mlp_dim, dropout = dropout)
+                KronFeedForward(dim, mlp_dim, dropout = dropout)
             ]))
 
     def forward(self, x):
@@ -181,4 +184,8 @@ if __name__ == "__main__":
     )
     test_tensor = torch.randn(1, 3, 256, 256)
     print(vit(test_tensor).shape)
+    # kronmlp = KronMLP(256, 512)
+    # a = torch.randn(1, 256)
+    # b = kronmlp(a)
+    # print(b.shape)
      

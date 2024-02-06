@@ -4,12 +4,16 @@ import torch.nn as nn
 from gkpd.tensorops import kron
 
 class KronLinear(nn.Module):
-    def __init__(self, rank, a_shape, b_shape, structured_sparse=False, bias=True) -> None:
+    def __init__(self, a_shape, b_shape, structured_sparse=False, rank=None, bias=True) -> None:
         super().__init__()
+        if not rank:
+            rank = min(*a_shape, *b_shape) 
         self.rank = rank
+        
         self.structured_sparse = structured_sparse
         if structured_sparse:
             self.s = nn.Parameter(torch.randn(rank, *a_shape), requires_grad=True)
+        
         self.a = nn.Parameter(torch.randn(rank, *a_shape), requires_grad=True)
         self.b = nn.Parameter(torch.randn(rank, *b_shape), requires_grad=True)
         nn.init.xavier_uniform_(self.a)

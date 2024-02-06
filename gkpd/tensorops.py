@@ -73,3 +73,26 @@ def kron(a: Union[torch.Tensor, np.ndarray], b: Union[torch.Tensor, np.ndarray])
     b = torch.from_numpy(b) if isinstance(b, np.ndarray) else b
 
     return torch.stack([torch.kron(a[k], b[k]) for k in range(a.shape[0])]).sum(dim=0)
+
+def kronlenet2lenet(kronlenet, lenet):
+    lenet.conv1.weight.data = kronlenet.conv1.weight.data
+    lenet.conv1.bias.data = kronlenet.conv1.bias.data
+    lenet.conv2.weight.data = kronlenet.conv2.weight.data
+    lenet.conv2.bias.data = kronlenet.conv2.bias.data
+    a1 = kronlenet.kronfc1.a * kronlenet.kronfc1.s.unsqueeze(0)
+    a2 = kronlenet.kronfc2.a * kronlenet.kronfc2.s.unsqueeze(0)
+    a3 = kronlenet.kronfc3.a * kronlenet.kronfc3.s.unsqueeze(0)
+    b1 = kronlenet.kronfc1.b
+    b2 = kronlenet.kronfc2.b
+    b3 = kronlenet.kronfc3.b
+    lenet.fc1.weight.data = kron(a1, b1)
+    print(lenet.fc1.weight.data.shape)
+    lenet.fc2.weight.data = kron(a2, b2)
+    lenet.fc3.weight.data = kron(a3, b3)
+    if kronlenet.kronfc1.bias is not None:
+        lenet.fc1.bias.data = kronlenet.kronfc1.bias.data
+    if kronlenet.kronfc2.bias is not None:
+        lenet.fc2.bias.data = kronlenet.kronfc2.bias.data
+    if kronlenet.kronfc3.bias is not None:        
+        lenet.fc3.bias.data = kronlenet.kronfc3.bias.data
+    return lenet 

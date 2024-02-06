@@ -37,14 +37,14 @@ train_dataset = datasets.MNIST(root='./data', train=True, download=True, transfo
 
 test_dataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
 
-train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=256, shuffle=True)
+train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=64, shuffle=True)
 
-test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=256, shuffle=True)
+test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=64, shuffle=True)
 
 Kronnecker_group = [[
-    [(16, 10), (16, 12)],
-    [(10, 12), (12, 7)],
-    [(12, 2), (7, 5)]
+    [(16, 10 * 5), (16, 12 * 2)],
+    [(10 * 5, 12 * 2), (12 * 2, 7 * 5)],
+    [(12 * 2, 2), (7 * 5, 5)]
     ],
     [[(8, 10), (32, 12)],
      [(5, 6), (24, 14)],
@@ -81,8 +81,6 @@ class KronLinear(nn.Module):
         self.b = nn.Parameter(torch.randn(rank, *b_shape), requires_grad=True)
         nn.init.xavier_uniform_(self.a)
         nn.init.xavier_uniform_(self.b)
-        self.a_shape = self.a.shape
-        self.b_shape = self.b.shape
         bias_shape = np.multiply(a_shape, b_shape)
         if bias:
             self.bias = nn.Parameter(torch.randn(*bias_shape[1:]), requires_grad=True)
@@ -90,41 +88,14 @@ class KronLinear(nn.Module):
             self.bias = None
         
     def forward(self, x):
-        # a = self.a
-        # if self.structured_sparse:
-        #     a = self.s.unsqueeze(0) * self.a
-        
-        # # a = self.s.unsqueeze(0) * self.a
-        # w = kron(a, self.b)
-        
-        # out = x @ w 
-        # if self.bias is not None:
-        #     out += self.bias.unsqueeze(0)
-        # return out
-        # =========================
         a = self.a
         if self.structured_sparse:
             a = self.s.unsqueeze(0) * self.a
         
         # a = self.s.unsqueeze(0) * self.a
-        # w = kron(a, self.b)
-        x_shape = x.shape 
-        b = self.b
-        r = self.a_shape[0]
-        x = torch.reshape(x, (-1, x_shape[-1]))
-        # print(x.shape, self.a_shape, self.b_shape)
-        b = rearrange(b, 'r b1 b2 -> b1 (b2 r)')
-        # print(b.shape)
-        x = rearrange(x, 'n (a1 b1) -> n a1 b1', a1=self.a_shape[1], b1=self.b_shape[1])
-        out = x @ b
-        out = rearrange(out, 'n a1 (b2 r) -> r (n b2) a1', b2=self.b_shape[2], r=r)
-        out = torch.bmm(out, a)
-        out = torch.sum(out, dim=0).squeeze(0)
-        out = rearrange(out, '(n b2) a2 -> n (a2 b2)', b2=self.b_shape[2])
-        out = torch.reshape(out, x_shape[:-1] + (self.b_shape[2] * self.a_shape[2],))
+        w = kron(a, self.b)
         
-        
-        
+        out = x @ w 
         if self.bias is not None:
             out += self.bias.unsqueeze(0)
         return out
@@ -161,15 +132,9 @@ class KronLeNet(nn.Module):
         return x
     
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-model = KronLeNet(group_id=group_id).to(device)
+from models.LeNet import LeNet
+model = LeNet().to(device)
 
-# calcu params of model
-def calcu_params(model):
-    total_params = 0
-    for param in model.parameters():
-        total_params += param.numel()
-    return total_params
-print(f"total params: {calcu_params(model)}")
 
 
 criterion = nn.CrossEntropyLoss()
@@ -193,23 +158,11 @@ def train(model, train_loader, criterion, optimizer, epochs, l1_weight=0.01, thr
     i_time = time()
     decay_weight = [1, 0.1, 0.01, 0.001, 0.0001]
     weight1 = l1_weight
-    # mask1 = torch.ones_like(model.kronfc1.s)
-    # mask2 = torch.ones_like(model.kronfc2.s)
-    # mask3 = torch.ones_like(model.kronfc3.s)
+
     thresold = thresold
-    # mask1, mask2, mask3 = mask1.to(device), mask2.to(device), mask3.to(device)    
+
     for epoch in range(epochs):
-        # if epoch % 5 == 0:
-            # mask1 = mask1 * (torch.abs(model.kronfc1.s) > thresold).float()
-            # model.kronfc1.s.data = model.kronfc1.s.data * mask1
-            # mask2 = mask2 * (torch.abs(model.kronfc2.s) > thresold).float()
-            # model.kronfc2.s.data = model.kronfc2.s.data * mask2
-            # mask3 = mask3 * (torch.abs(model.kronfc3.s) > thresold).float()
-            # model.kronfc3.s.data = model.kronfc3.s.data * mask3
-            # # if mask have 0 in any position, print mask 
-            # print(model.kronfc1.s.data)
-            # print(model.kronfc2.s.data)
-            # print(model.kronfc3.s.data)
+        
         running_loss = 0.0
         l1_weight = decay_weight[epoch//20] * weight1
         for inputs, labels in train_loader:
@@ -218,29 +171,15 @@ def train(model, train_loader, criterion, optimizer, epochs, l1_weight=0.01, thr
             outputs = model(inputs)
             # print(outputs, outputs.shape)
             loss = criterion(outputs, labels)
-            loss += l1_weight * torch.norm(model.kronfc1.s, p=1)
-            loss += l1_weight * torch.norm(model.kronfc2.s, p=1)
-            loss += l1_weight * torch.norm(model.kronfc3.s, p=1)
+
             
             # print(loss)
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
         print(f"Epoch {epoch + 1}/{epochs}, Loss: {running_loss/len(train_loader)}")
-        # print the sparsity of a, dont use == use the abs less than 1e-5
 
-        
-        # print(f"fc1py sparsity: {fc1_sparse}, fc2 sparsity: {fc2_sparse}, fc3 sparsity: {fc3_sparse}")
-        # print(f"total sparse params: {fc1_sparse + fc2_sparse + fc3_sparse}")
-        # print(f"fc1 total params: {model.kronfc1.s.numel()}, fc2 total params: {model.kronfc2.s.numel()}, fc3 total params: {model.kronfc3.s.numel()}")
-        # print(f"total params: {total_params}")
-    torch.save(model.state_dict(), f'./model_save/mnist_kron_sparse_{group_id}.pth')
     print("Finished Training, total_time:", time()-i_time)
-    print(calculate_sparsity(model))
-    fc1_sparse = torch.sum(torch.abs(model.kronfc1.s) < 1e-5).item() 
-    fc2_sparse = torch.sum(torch.abs(model.kronfc2.s) < 1e-5).item() 
-    fc3_sparse = torch.sum(torch.abs(model.kronfc3.s) < 1e-5).item() 
-    print('total sparsity rate:', (fc1_sparse + fc2_sparse + fc3_sparse)/(model.kronfc1.s.numel() + model.kronfc2.s.numel() + model.kronfc3.s.numel()))
 init_time = time()
         
 train(model, train_loader, criterion, optimizer, epochs=100, thresold=thresold)
@@ -262,11 +201,15 @@ def test(model, test_loader):
 accuracy = test(model, test_loader)
 print("inference time:", time()-training_time)
 
-from models.LeNet import LeNet
-lenet = LeNet()
-from gkpd.tensorops import kronlenet2lenet
-lenet = kronlenet2lenet(model, lenet)
-lenet_test_init = time()
-accuracy = test(lenet, test_loader)
-print("inference time:", time()-lenet_test_init)
+with open('/home/zhu.3723/kron_compression/result.txt') as f:
+    f.write(f"--------- hyper params -------\n")
+    f.write(f"group_id: {group_id}\n")
+    f.write(f'group:{Kronnecker_group[group_id]}')
+    f.write(f"thresold: {thresold}\n")
+    f.write(f"--------- training result -------\n")
+    f.write(f"training time: {training_time-init_time}\n")
+    f.write(f"--------- inference result -------\n")
+    f.write(f"Accuracy: {accuracy}\n")
+    f.write(f"inference time: {time()-training_time}\n")
+    f.write(f"----------------------------------\n")    
 
