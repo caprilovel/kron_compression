@@ -138,9 +138,9 @@ class KronLeNet(nn.Module):
         self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
         self.relu2 = nn.LeakyReLU()
         self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
-        rank1 = 21
-        rank2 = 10
-        rank3 = 4
+        rank1 = 15
+        rank2 = 6
+        rank3 = 3
         
         self.kronfc1 = KronLinear(rank1, Kronnecker_group[group_id][0][0], Kronnecker_group[group_id][0][1], bias=False, structured_sparse=True)
         
@@ -262,11 +262,5 @@ def test(model, test_loader):
 accuracy = test(model, test_loader)
 print("inference time:", time()-training_time)
 
-from models.LeNet import LeNet
-lenet = LeNet()
-from gkpd.tensorops import kronlenet2lenet
-lenet = kronlenet2lenet(model, lenet)
-lenet_test_init = time()
-accuracy = test(lenet, test_loader)
-print("inference time:", time()-lenet_test_init)
+
 

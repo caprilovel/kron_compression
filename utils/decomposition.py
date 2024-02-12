@@ -3,8 +3,28 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from models.KronLinear import KronLinear
 import numpy as np
+import tensorly as tl
 
+# def kron(a, b, s=None):
+#     """
+
+#     Args:
+#         a (_type_): _description_
+#         b (_type_): _description_
+#         s (_type_, optional): _description_. Defaults to None.
+#     """
+#     # kronecker for a and b
+#     # a have shape (rank, *a_shape)
+#     # b have shape (rank, *b_shape)
+#     # s have shape (*a_shape)
+#     # if s is not None, then a will be multiplied by s
+    
+#     if s is not None:
+#         assert a.shape[1:] == s.shape, "a and s should have the same shape"
+#         a = s.unsqueeze(0) * a
+    
 
 def multidimensional_unfold(tensor: torch.Tensor, kernel_size: tuple, stride: tuple,
                             device: torch.device = torch.device('cpu')) -> torch.Tensor:
@@ -61,7 +81,7 @@ def multidimensional_slice(tensor: torch.Tensor, start: torch.Tensor, stop: torc
 
 
 
-def kron(a: Union[torch.Tensor, np.ndarray], b: Union[torch.Tensor, np.ndarray]) -> torch.Tensor:
+def kron(a: Union[torch.Tensor, np.ndarray], b: Union[torch.Tensor, np.ndarray], s: Union[torch.Tensor, np.ndarray]=None) -> torch.Tensor:
     """Kronecker product between factors `a` and `b`
 
     Args:
@@ -71,9 +91,64 @@ def kron(a: Union[torch.Tensor, np.ndarray], b: Union[torch.Tensor, np.ndarray])
     Returns:
         Tensor containing kronecker product between `a` and `b`
     """
-
+    if s is not None:
+        assert a.shape[1:] == s.shape, "a and s should have the same shape"
+        a = s.unsqueeze(0) * a
     a = torch.from_numpy(a) if isinstance(a, np.ndarray) else a
     b = torch.from_numpy(b) if isinstance(b, np.ndarray) else b
 
     return torch.stack([torch.kron(a[k], b[k]) for k in range(a.shape[0])]).sum(dim=0)
 
+def decompose_model(model, type, config):
+    
+    
+    pass
+
+def kron_decompose_model(model, layer_config):
+    for name, module in model._modules.items():
+        if len(list(module.children())) > 0:
+            # recurse
+            model._modules[name] = kron_decompose_model(module, layer_config)
+            
+        elif isinstance(module, nn.Conv2d):
+            # todo: do the decomposition for nn.Conv2d
+            pass
+        elif isinstance(module, nn.Linear):
+            linear_layer = module
+            print(linear_layer)
+            
+            # todo: get set_rank from config 
+            rank = 1
+            
+            decomposed = svd_decomposed_linear_model(linear_layer, rank)
+            model._module[name] = decomposed
+            
+def svd_decomposed_linear_model(linear_layer, rank, config):
+    # todo : get the config settings
+    # Weight should be size of (in_features, out_features)
+    # A should have a size of (in_1, out_1)
+    # B should have a size of (in_2, out_2)
+    # input should have a size of (in_features)
+    in_1, out_1 = config['a_shape']
+    in_2, out_2 = config['b_shape']
+    
+    first_layer = nn.Linear(in_features = in_1, out_features = out_1, bias=False)
+    second_layer = nn.Linear(in_features = in_1, out_features = out_2, bias=False)
+    
+    
+    
+    
+    
+def kronlinear2linear(kronlinear_layer):
+    
+    return
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            

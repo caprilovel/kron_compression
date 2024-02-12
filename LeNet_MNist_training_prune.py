@@ -39,7 +39,8 @@ test_dataset = datasets.MNIST(root='./data', train=False, download=True, transfo
 
 train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=64, shuffle=True)
 
-test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=64, shuffle=True)
+# test all test data in one epoch
+test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=10000, shuffle=True)
 
 Kronnecker_group = [[
     [(16, 10 * 5), (16, 12 * 2)],
@@ -109,9 +110,9 @@ class KronLeNet(nn.Module):
         self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
         self.relu2 = nn.LeakyReLU()
         self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
-        rank1 = 21
-        rank2 = 10
-        rank3 = 4
+        rank1 = 30
+        rank2 = 15
+        rank3 = 6
         
         self.kronfc1 = KronLinear(rank1, Kronnecker_group[group_id][0][0], Kronnecker_group[group_id][0][1], bias=False, structured_sparse=True)
         

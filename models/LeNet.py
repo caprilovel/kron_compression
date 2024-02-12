@@ -3,38 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-# class KronLeNet(nn.Module):
-#     def __init__(self, group_id=1) -> None:
-#         super(KronLeNet, self).__init__()
-#         self.conv1 = nn.Conv2d(1, 6, kernel_size=5)
-#         self.relu1 = nn.LeakyReLU()
-#         self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
-#         self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
-#         self.relu2 = nn.LeakyReLU()
-#         self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
-#         rank1 = 21
-#         rank2 = 10
-#         rank3 = 4
-        
-#         self.kronfc1 = KronLinear(rank1, Kronnecker_group[group_id][0][0], Kronnecker_group[group_id][0][1], bias=False, structured_sparse=True)
-        
-#         self.kronfc2 = KronLinear(rank2, Kronnecker_group[group_id][1][0], Kronnecker_group[group_id][1][1], bias=False, structured_sparse=True)
-        
-#         self.kronfc3 = KronLinear(rank3, Kronnecker_group[group_id][2][0], Kronnecker_group[group_id][2][1], bias=False, structured_sparse=True)
-#         self.relu3 = nn.LeakyReLU()
-#         self.relu4 = nn.LeakyReLU()
-
-
-#     def forward(self, x):
-#         x = self.pool1(self.relu1(self.conv1(x)))
-#         x = self.pool2(self.relu2(self.conv2(x)))
-#         x = x.view(-1, 16 * 4 * 4)
-#         x = self.relu3(self.kronfc1(x))
-#         x = self.relu4(self.kronfc2(x))
-#         x = self.kronfc3(x)
-#         return x
-
-
 class LeNet(nn.Module):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -43,8 +11,8 @@ class LeNet(nn.Module):
         self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
         self.relu2 = nn.LeakyReLU()
-        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.fc1 = nn.Linear(16 * 4 * 4, 120)
+        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2, padding=1)
+        self.fc1 = nn.Linear(25 * 4 * 4, 120)
         self.relu3 = nn.LeakyReLU()
         self.fc2 = nn.Linear(120, 84)
         self.relu4 = nn.LeakyReLU()
