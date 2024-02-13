@@ -23,3 +23,23 @@ def calculate_accuracy(predictions, targets):
     correct_elements = torch.sum(predictions == targets).item()
     accuracy = correct_elements / total_elements
     return accuracy
+
+# calcu params of model
+def calcu_params(model):
+    total_params = 0
+    for param in model.parameters():
+        total_params += param.numel()
+    print(f"total params: {total_params}")
+    return total_params
+
+def calculate_sparsity(model, threshold=1e-6):
+    total_params = 0
+    sparse_params = 0
+
+    for param in model.parameters():
+        total_params += param.numel()  # 统计参数总数
+        sparse_params += torch.sum(torch.abs(param) < threshold).item()  # 统计绝对值小于阈值的参数数量
+
+    sparsity = sparse_params / total_params  # 计算稀疏性
+    return sparsity, sparse_params, total_params
+    

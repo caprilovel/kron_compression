@@ -41,95 +41,9 @@ train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=64, shuffle
 
 test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=64, shuffle=True)
 
-Kronnecker_group = [[
-    [(16, 10 * 5), (16, 12 * 2)],
-    [(10 * 5, 12 * 2), (12 * 2, 7 * 5)],
-    [(12 * 2, 2), (7 * 5, 5)]
-    ],
-    [[(8, 10), (32, 12)],
-     [(5, 6), (24, 14)],
-     [(4, 2), (21, 5)]
-     ],
-    [[(32, 12), (8, 10)],
-     [(24, 14), (5, 6)],
-        [(21, 5), (4, 2)]
-     ],
-    [[(4, 5), (64, 24)],
-     [(5, 3), (24, 28)],
-     [(4, 2), (21, 5)]
-     ],
-    ]
 
 
-class KronLinear(nn.Module):
-    def __init__(self, rank, a_shape, b_shape, structured_sparse=False, bias=True) -> None:
-        """Kronecker Linear Layer
 
-        Args:
-            rank (int): _description_
-            a_shape (_type_): _description_
-            b_shape (_type_): _description_
-            structured_sparse (bool, optional): _description_. Defaults to False.
-            bias (bool, optional): _description_. Defaults to True.
-        """
-        super().__init__()
-        self.rank = rank
-        self.structured_sparse = structured_sparse
-        if structured_sparse:
-            self.s = nn.Parameter(torch.randn( *a_shape), requires_grad=True)
-        self.a = nn.Parameter(torch.randn(rank, *a_shape), requires_grad=True)
-        self.b = nn.Parameter(torch.randn(rank, *b_shape), requires_grad=True)
-        nn.init.xavier_uniform_(self.a)
-        nn.init.xavier_uniform_(self.b)
-        bias_shape = np.multiply(a_shape, b_shape)
-        if bias:
-            self.bias = nn.Parameter(torch.randn(*bias_shape[1:]), requires_grad=True)
-        else:
-            self.bias = None
-        
-    def forward(self, x):
-        a = self.a
-        if self.structured_sparse:
-            a = self.s.unsqueeze(0) * self.a
-        
-        # a = self.s.unsqueeze(0) * self.a
-        w = kron(a, self.b)
-        
-        out = x @ w 
-        if self.bias is not None:
-            out += self.bias.unsqueeze(0)
-        return out
-    
-class KronLeNet(nn.Module):
-    def __init__(self, group_id=1) -> None:
-        super(KronLeNet, self).__init__()
-        self.conv1 = nn.Conv2d(1, 6, kernel_size=5)
-        self.relu1 = nn.LeakyReLU()
-        self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.conv2 = nn.Conv2d(6, 16, kernel_size=5)
-        self.relu2 = nn.LeakyReLU()
-        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
-        rank1 = 21
-        rank2 = 10
-        rank3 = 4
-        
-        self.kronfc1 = KronLinear(rank1, Kronnecker_group[group_id][0][0], Kronnecker_group[group_id][0][1], bias=False, structured_sparse=True)
-        
-        self.kronfc2 = KronLinear(rank2, Kronnecker_group[group_id][1][0], Kronnecker_group[group_id][1][1], bias=False, structured_sparse=True)
-        
-        self.kronfc3 = KronLinear(rank3, Kronnecker_group[group_id][2][0], Kronnecker_group[group_id][2][1], bias=False, structured_sparse=True)
-        self.relu3 = nn.LeakyReLU()
-        self.relu4 = nn.LeakyReLU()
-
-
-    def forward(self, x):
-        x = self.pool1(self.relu1(self.conv1(x)))
-        x = self.pool2(self.relu2(self.conv2(x)))
-        x = x.view(-1, 16 * 4 * 4)
-        x = self.relu3(self.kronfc1(x))
-        x = self.relu4(self.kronfc2(x))
-        x = self.kronfc3(x)
-        return x
     
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 from models.LeNet import LeNet
