@@ -8,6 +8,7 @@ from torchvision import transforms, datasets
 
 
 def loader_generate(dataset_name):
+    dataset_name = dataset_name.lower()
     if dataset_name == 'mnist':
         transform = transforms.Compose([
             transforms.ToTensor(),

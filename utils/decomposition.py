@@ -122,7 +122,9 @@ def kron_decompose_model(model, layer_config):
             
             decomposed = svd_decomposed_linear_model(linear_layer, rank)
             model._module[name] = decomposed
-            
+
+
+
 def svd_decomposed_linear_model(linear_layer, rank, config):
     # todo : get the config settings
     # Weight should be size of (in_features, out_features)

@@ -3,7 +3,9 @@ parser = Args().get_parser()
 rank_rate = parser.rank_rate
 structure_sparse = parser.ss
 shape_bias = parser.shape_bias
- 
+model_type = parser.model
+
+device_setting = parser.device
 
 import torch
 import torch.nn as nn
@@ -26,10 +28,12 @@ dataset = parser.dataset
 
 
 train_loader, test_loader = loader_generate(dataset)
+if dataset == 'MNIST' or 'mnist':
+    input_size = (1, 1, 28, 28)
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-
+device = torch.device('cuda' if torch.cuda.is_available() and device_setting=='cuda' else 'cpu')
+from deepspeed.profiling.flops_profiler import get_model_profile
+from deepspeed.accelerator import get_accelerator
 
 
 
@@ -39,10 +43,15 @@ kron_config = {
     'bias':False,
     'shape_bias':shape_bias
 }
+if model_type == 'KronLeNet_5':
+    model = KronLeNet_5(kron_config=kron_config).to(device)
+elif model_type == 'LeNet_5':
+    from models.LeNet import LeNet_5
+    model = LeNet_5().to(device)
+summary(model, (1, 28, 28), device=device_setting)
 
-
-model = KronLeNet_5(kron_config=kron_config).to(device)
-summary(model, (1, 28, 28))
+with get_accelerator().device():
+    profile = get_model_profile(model, input_shape=input_size, )
 
 
 from utils.evaluation import calcu_params, calculate_sparsity
@@ -82,9 +91,10 @@ def train(model, train_loader, criterion, optimizer, epochs, l1_weight=0.01, thr
             outputs = model(inputs)
             # print(outputs, outputs.shape)
             loss = criterion(outputs, labels)
-            loss += l1_weight * torch.norm(model.kronfc1.s, p=1)
-            loss += l1_weight * torch.norm(model.kronfc2.s, p=1)
-            loss += l1_weight * torch.norm(model.kronfc3.s, p=1)
+            if model_type == 'KronLeNet_5':
+                loss += l1_weight * torch.norm(model.kronfc1.s, p=1)
+                loss += l1_weight * torch.norm(model.kronfc2.s, p=1)
+                loss += l1_weight * torch.norm(model.kronfc3.s, p=1)
             
             # print(loss)
             loss.backward()
@@ -98,13 +108,14 @@ def train(model, train_loader, criterion, optimizer, epochs, l1_weight=0.01, thr
         # print(f"total sparse params: {fc1_sparse + fc2_sparse + fc3_sparse}")
         # print(f"fc1 total params: {model.kronfc1.s.numel()}, fc2 total params: {model.kronfc2.s.numel()}, fc3 total params: {model.kronfc3.s.numel()}")
         # print(f"total params: {total_params}")
-    torch.save(model.state_dict(), f'./model_save/mnist_kron_sparse_.pth')
+    torch.save(model.state_dict(), f'./model_save/mnist_kron_sparse_{model_type}.pth')
     print("Finished Training, total_time:", time()-i_time)
-    print(calculate_sparsity(model))
-    fc1_sparse = torch.sum(torch.abs(model.kronfc1.s) < 1e-5).item() 
-    fc2_sparse = torch.sum(torch.abs(model.kronfc2.s) < 1e-5).item() 
-    fc3_sparse = torch.sum(torch.abs(model.kronfc3.s) < 1e-5).item() 
-    print('total sparsity rate:', (fc1_sparse + fc2_sparse + fc3_sparse)/(model.kronfc1.s.numel() + model.kronfc2.s.numel() + model.kronfc3.s.numel()))
+    if model_type == 'KronLeNet_5':
+        print(calculate_sparsity(model))
+        fc1_sparse = torch.sum(torch.abs(model.kronfc1.s) < 1e-5).item() 
+        fc2_sparse = torch.sum(torch.abs(model.kronfc2.s) < 1e-5).item() 
+        fc3_sparse = torch.sum(torch.abs(model.kronfc3.s) < 1e-5).item() 
+        print('total sparsity rate:', (fc1_sparse + fc2_sparse + fc3_sparse)/(model.kronfc1.s.numel() + model.kronfc2.s.numel() + model.kronfc3.s.numel()))
 init_time = time()
         
 train(model, train_loader, criterion, optimizer, epochs=100, thresold=0.1)

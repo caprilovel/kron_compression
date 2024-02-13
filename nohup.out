@@ -1,0 +1,182 @@
+[2024-02-13 07:11:13,264] [INFO] [real_accelerator.py:191:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+            Conv2d-1            [-1, 6, 24, 24]             156
+         LeakyReLU-2            [-1, 6, 24, 24]               0
+         MaxPool2d-3            [-1, 6, 12, 12]               0
+            Conv2d-4           [-1, 16, 10, 10]           2,416
+         LeakyReLU-5           [-1, 16, 10, 10]               0
+         MaxPool2d-6             [-1, 16, 5, 5]               0
+        KronLinear-7                  [-1, 120]               0
+         LeakyReLU-8                  [-1, 120]               0
+        KronLinear-9                   [-1, 84]               0
+        LeakyReLU-10                   [-1, 84]               0
+       KronLinear-11                   [-1, 10]               0
+================================================================
+Total params: 2,572
+Trainable params: 2,572
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 0.00
+Forward/backward pass size (MB): 0.09
+Params size (MB): 0.01
+Estimated Total Size (MB): 0.10
+----------------------------------------------------------------
+[2024-02-13 07:11:14,662] [INFO] [profiler.py:1205:get_model_profile] Flops profiler warming-up...
+[2024-02-13 07:11:14,666] [INFO] [profiler.py:80:start_profile] Flops profiler started
+
+-------------------------- DeepSpeed Flops Profiler --------------------------
+Profile Summary at step 1:
+Notations:
+data parallel size (dp_size), model parallel size(mp_size),
+number of parameters (params), number of multiply-accumulate operations(MACs),
+number of floating-point operations (flops), floating-point operations per second (FLOPS),
+fwd latency (forward propagation latency), bwd latency (backward propagation latency),
+step (weights update latency), iter latency (sum of fwd, bwd and step latency)
+
+params per GPU:                                                         3.58 K  
+params of model = params per GPU * mp_size:                             0       
+fwd MACs per GPU:                                                       329.71 KMACs
+fwd flops per GPU:                                                      674.79 K
+fwd flops of model = fwd flops per GPU * mp_size:                       674.79 K
+fwd latency:                                                            6.45 ms 
+fwd FLOPS per GPU = fwd flops per GPU / fwd latency:                    104.56 MFLOPS
+
+----------------------------- Aggregated Profile per GPU -----------------------------
+Top 1 modules in terms of params, MACs or fwd latency at different model depths:
+depth 0:
+    params      - {'KronLeNet_5': '3.58 K'}
+    MACs        - {'KronLeNet_5': '329.71 KMACs'}
+    fwd latency - {'KronLeNet_5': '6.45 ms'}
+
+------------------------------ Detailed Profile per GPU ------------------------------
+Each module profile is listed after its name in the following order: 
+params, percentage of total params, MACs, percentage of total MACs, fwd latency, percentage of total fwd latency, fwd FLOPS
+
+Note: 1. A module can have torch.nn.module or torch.nn.functional to compute logits (e.g. CrossEntropyLoss). They are not counted as submodules, thus not to be printed out. However they make up the difference between a parent's MACs (or latency) and the sum of its submodules'.
+2. Number of floating-point operations is a theoretical estimation, thus FLOPS computed using that could be larger than the maximum system throughput.
+3. The fwd latency listed in the top module's profile is directly captured at the module forward function in PyTorch, thus it's less than the fwd latency shown above which is captured in DeepSpeed.
+
+KronLeNet_5(
+  3.58 K = 100% Params, 329.71 KMACs = 100% MACs, 6.45 ms = 100% latency, 104.56 MFLOPS
+  (conv1): Conv2d(156 = 4.35% Params, 86.4 KMACs = 26.2% MACs, 417.71 us = 6.47% latency, 421.96 MFLOPS, 1, 6, kernel_size=(5, 5), stride=(1, 1))
+  (relu1): LeakyReLU(0 = 0% Params, 0 MACs = 0% MACs, 913.62 us = 14.16% latency, 3.78 MFLOPS, negative_slope=0.01)
+  (pool1): MaxPool2d(0 = 0% Params, 0 MACs = 0% MACs, 953.2 us = 14.77% latency, 3.63 MFLOPS, kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (conv2): Conv2d(2.42 K = 67.41% Params, 240 KMACs = 72.79% MACs, 640.39 us = 9.92% latency, 752.04 MFLOPS, 6, 16, kernel_size=(5, 5), stride=(1, 1), padding=(1, 1))
+  (relu2): LeakyReLU(0 = 0% Params, 0 MACs = 0% MACs, 314.24 us = 4.87% latency, 5.09 MFLOPS, negative_slope=0.01)
+  (pool2): MaxPool2d(0 = 0% Params, 0 MACs = 0% MACs, 330.92 us = 5.13% latency, 4.83 MFLOPS, kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (kronfc1): KronLinear(640 = 17.86% Params, 2.4 KMACs = 0.73% MACs, 671.39 us = 10.4% latency, 7.15 MFLOPS)
+  (kronfc2): KronLinear(284 = 7.92% Params, 840 MACs = 0.25% MACs, 267.03 us = 4.14% latency, 6.29 MFLOPS)
+  (kronfc3): KronLinear(88 = 2.46% Params, 70 MACs = 0.02% MACs, 680.92 us = 10.55% latency, 205.6 KFLOPS)
+  (relu3): LeakyReLU(0 = 0% Params, 0 MACs = 0% MACs, 498.77 us = 7.73% latency, 240.59 KFLOPS, negative_slope=0.01)
+  (relu4): LeakyReLU(0 = 0% Params, 0 MACs = 0% MACs, 550.75 us = 8.53% latency, 152.52 KFLOPS, negative_slope=0.01)
+)
+------------------------------------------------------------------------------
+[2024-02-13 07:11:14,674] [INFO] [profiler.py:226:end_profile] Flops profiler finished
+total params: 3584
+Epoch 1/100, Loss: 2.180544799578978
+Epoch 2/100, Loss: 0.9687724134434007
+Epoch 3/100, Loss: 0.6327245126782196
+Epoch 4/100, Loss: 0.470509989524701
+Epoch 5/100, Loss: 0.38815007087137143
+Epoch 6/100, Loss: 0.34235718611206833
+Epoch 7/100, Loss: 0.307679338718274
+Epoch 8/100, Loss: 0.27926584422143536
+Epoch 9/100, Loss: 0.2551350009752743
+Epoch 10/100, Loss: 0.23474148719676777
+Epoch 11/100, Loss: 0.21915136293561727
+Epoch 12/100, Loss: 0.20419553762623496
+Epoch 13/100, Loss: 0.19117697147227553
+Epoch 14/100, Loss: 0.1817639429511419
+Epoch 15/100, Loss: 0.17120076924054098
+Epoch 16/100, Loss: 0.16206964214187441
+Epoch 17/100, Loss: 0.1563446675854197
+Epoch 18/100, Loss: 0.1485235083506687
+Epoch 19/100, Loss: 0.14180562064559984
+Epoch 20/100, Loss: 0.13614750323868763
+Epoch 21/100, Loss: 0.06821000010871303
+Epoch 22/100, Loss: 0.06589714050201624
+Epoch 23/100, Loss: 0.06451106588763278
+Epoch 24/100, Loss: 0.06398231635636675
+Epoch 25/100, Loss: 0.06392559418673201
+Epoch 26/100, Loss: 0.06038002140605564
+Epoch 27/100, Loss: 0.06019493190746413
+Epoch 28/100, Loss: 0.058933850634954314
+Epoch 29/100, Loss: 0.05916316174804719
+Epoch 30/100, Loss: 0.0564502622745534
+Epoch 31/100, Loss: 0.05662098900675138
+Epoch 32/100, Loss: 0.05563741720327214
+Epoch 33/100, Loss: 0.05435929858366023
+Epoch 34/100, Loss: 0.05452638842673825
+Epoch 35/100, Loss: 0.052861728908013564
+Epoch 36/100, Loss: 0.052758636991622476
+Epoch 37/100, Loss: 0.05186086411931431
+Epoch 38/100, Loss: 0.05017901077640177
+Epoch 39/100, Loss: 0.05061033235064575
+Epoch 40/100, Loss: 0.04979253681038997
+Epoch 41/100, Loss: 0.042094958942757846
+Epoch 42/100, Loss: 0.041865534721630446
+Epoch 43/100, Loss: 0.041305757560846666
+Epoch 44/100, Loss: 0.040019672462415855
+Epoch 45/100, Loss: 0.04090911158219552
+Epoch 46/100, Loss: 0.04016831815816156
+Epoch 47/100, Loss: 0.039398612839275045
+Epoch 48/100, Loss: 0.03901754721524075
+Epoch 49/100, Loss: 0.03873561291115434
+Epoch 50/100, Loss: 0.03847206401753364
+Epoch 51/100, Loss: 0.03710071211082559
+Epoch 52/100, Loss: 0.03642764046633326
+Epoch 53/100, Loss: 0.03660247298585537
+Epoch 54/100, Loss: 0.03570131094133887
+Epoch 55/100, Loss: 0.035725463472275946
+Epoch 56/100, Loss: 0.035242096513513725
+Epoch 57/100, Loss: 0.03507722330988069
+Epoch 58/100, Loss: 0.03333062201086531
+Epoch 59/100, Loss: 0.034623178379632025
+Epoch 60/100, Loss: 0.03357484086056991
+Epoch 61/100, Loss: 0.033104322799881084
+Epoch 62/100, Loss: 0.032445363974176855
+Epoch 63/100, Loss: 0.032835684021296815
+Epoch 64/100, Loss: 0.031787459191412966
+Epoch 65/100, Loss: 0.032046696512157156
+Epoch 66/100, Loss: 0.0315362835956513
+Epoch 67/100, Loss: 0.03107934413106813
+Epoch 68/100, Loss: 0.03233295196524215
+Epoch 69/100, Loss: 0.029990344984934223
+Epoch 70/100, Loss: 0.03065966459612093
+Epoch 71/100, Loss: 0.02987195623391715
+Epoch 72/100, Loss: 0.02962720991821085
+Epoch 73/100, Loss: 0.029581394289273456
+Epoch 74/100, Loss: 0.029545024312203075
+Epoch 75/100, Loss: 0.02774316005776502
+Epoch 76/100, Loss: 0.02823487388811929
+Epoch 77/100, Loss: 0.028708362658757584
+Epoch 78/100, Loss: 0.029146762000480497
+Epoch 79/100, Loss: 0.027756986288186996
+Epoch 80/100, Loss: 0.02794611361729458
+Epoch 81/100, Loss: 0.027032396777133733
+Epoch 82/100, Loss: 0.02628196789177511
+Epoch 83/100, Loss: 0.026787716748178262
+Epoch 84/100, Loss: 0.027573315323292484
+Epoch 85/100, Loss: 0.025381266974662465
+Epoch 86/100, Loss: 0.025758609711434562
+Epoch 87/100, Loss: 0.026019533379308096
+Epoch 88/100, Loss: 0.025338744327462196
+Epoch 89/100, Loss: 0.024659621953908507
+Epoch 90/100, Loss: 0.02466976522849328
+Epoch 91/100, Loss: 0.025046560007816694
+Epoch 92/100, Loss: 0.024124268621382457
+Epoch 93/100, Loss: 0.024556863102916705
+Epoch 94/100, Loss: 0.025184399317360176
+Epoch 95/100, Loss: 0.023856671614293033
+Epoch 96/100, Loss: 0.024232889778152605
+Epoch 97/100, Loss: 0.023525897448227532
+Epoch 98/100, Loss: 0.02317146993123555
+Epoch 99/100, Loss: 0.023535673647593614
+Epoch 100/100, Loss: 0.024114237772978792
+Finished Training, total_time: 964.1050252914429
+(0.010881696428571428, 39, 3584)
+total sparsity rate: 0.22183098591549297
+Accuracy: 97.97000122070312
+inference time: 1.2831683158874512

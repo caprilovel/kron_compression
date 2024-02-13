@@ -99,20 +99,41 @@ class KronLinear(nn.Module):
         # w = kron(a, self.b)
         x_shape = x.shape 
         b = self.b
-        r = self.a_shape[0]
+        
         x = torch.reshape(x, (-1, x_shape[-1]))
-        # print(x.shape, self.a_shape, self.b_shape)
-        b = rearrange(b, 'r b1 b2 -> b1 (b2 r)')
-        # print(b.shape)
-        x = rearrange(x, 'n (a1 b1) -> n a1 b1', a1=self.a_shape[1], b1=self.b_shape[1])
+        
+        # b = rearrange(b, 'r b1 b2 -> b1 (b2 r)')
+        b = b.permute(1, 2, 0).contiguous().view(b.shape[1], -1).contiguous()
+        
+        # x = rearrange(x, 'n (a1 b1) -> n a1 b1', a1=self.a_shape[1], b1=self.b_shape[1])
+        x = x.view(-1, self.a_shape[1], self.b_shape[1])
+        
         out = x @ b
-        out = rearrange(out, 'n a1 (b2 r) -> r (n b2) a1', b2=self.b_shape[2], r=r)
+        
+        # out = rearrange(out, 'n a1 (b2 r) -> r (n b2) a1', b2=self.b_shape[2], r=self.rank) 
+        out = out.view(-1, self.a_shape[1], self.rank, self.b_shape[2])
+
+        # Permute dimensions
+        out = out.permute(2, 0, 3, 1)
+        out = out.contiguous().view(self.rank, -1, self.a_shape[1])
+        
         out = torch.bmm(out, a)
+        
         out = torch.sum(out, dim=0).squeeze(0)
-        out = rearrange(out, '(n b2) a2 -> n (a2 b2)', b2=self.b_shape[2])
-        out = torch.reshape(out, x_shape[:-1] + (self.b_shape[2] * self.a_shape[2],))
         
         
+        # out = rearrange(out, '(n b2) a2 -> n (a2 b2)', b2=self.b_shape[2])
+        out = out.view(-1, self.b_shape[2], self.a_shape[2])
+
+        # Permute dimensions
+        out = out.permute(0, 2, 1).contiguous()
+
+        # Reshape again
+        out = out.view(-1, self.a_shape[2] * self.b_shape[2])
+        
+        
+        
+        out = torch.reshape(out, x_shape[:-1] + (self.a_shape[2] * self.b_shape[2],))
         
         if self.bias is not None:
             out += self.bias.unsqueeze(0)

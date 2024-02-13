@@ -1,5 +1,11 @@
-# range 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
 for num in {1..9}
 do 
-    python main.py --rank_rate 0.$num
+    python main.py --rank_rate 0.$num --device cpu
 done
+
+for num in {1..4}
+do 
+    python main.py --rank_rate $num --device cpu
+done
+
+python main.py --model LeNet_5 --device cpu

@@ -40,7 +40,9 @@ class Args(argparse.ArgumentParser):
         self.add_argument('--rank_rate', type=float, default=0.1, help='rank rate')
         self.add_argument('--ss', type=boolean_string, default=True, help='structured sparse')
         self.add_argument('--shape_bias', type=int, default=0, help='shape bias')
-        
+        self.add_argument('--l1_weight', type=float, default=0.01, help='l1 weight')
+        self.add_argument('--model', type=str, default='KronLeNet_5', help='model')
+        self.add_argument('--device', type=str, default='cuda', help='device')
                 
         
     def get_parser(self):
