@@ -90,24 +90,11 @@ class KronLinear(nn.Module):
             self.bias = None
         
     def forward(self, x):
-        # a = self.a
-        # if self.structured_sparse:
-        #     a = self.s.unsqueeze(0) * self.a
-        
-        # # a = self.s.unsqueeze(0) * self.a
-        # w = kron(a, self.b)
-        
-        # out = x @ w 
-        # if self.bias is not None:
-        #     out += self.bias.unsqueeze(0)
-        # return out
-        # =========================
         a = self.a
         if self.structured_sparse:
             a = self.s.unsqueeze(0) * self.a
         
-        # a = self.s.unsqueeze(0) * self.a
-        # w = kron(a, self.b)
+
         x_shape = x.shape 
         b = self.b
         r = self.a_shape[0]

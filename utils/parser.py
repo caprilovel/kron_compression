@@ -36,14 +36,14 @@ class Args(argparse.ArgumentParser):
         
         self.add_argument('--group_id', type=int, default=0, help='group id')
         self.add_argument('--thresold', type=float, default=1e-1, help='thresold')
-        self.add_argument('--dataset', type=str, default='MNIST', help='dataset')
+        self.add_argument('--dataset', type=str, default='cifar10', help='dataset')
         self.add_argument('--rank_rate', type=float, default=0.1, help='rank rate')
         self.add_argument('--ss', type=boolean_string, default=True, help='structured sparse')
         self.add_argument('--shape_bias', type=int, default=0, help='shape bias')
         self.add_argument('--l1_weight', type=float, default=0.01, help='l1 weight')
         self.add_argument('--model', type=str, default='KronLeNet_5', help='model')
         self.add_argument('--device', type=str, default='cuda', help='device')
-                
+        self.add_argument('--kron', type=boolean_string, default=True, help='whether to kron decompose the model')
         
     def get_parser(self):
         return self.parse_args()

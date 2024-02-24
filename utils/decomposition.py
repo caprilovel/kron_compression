@@ -104,7 +104,7 @@ def decompose_model(model, type, config):
     
     pass
 
-def kron_decompose_model(model, layer_config):
+def kron_decompose_model(model, layer_config=None):
     for name, module in model._modules.items():
         if len(list(module.children())) > 0:
             # recurse
@@ -115,15 +115,26 @@ def kron_decompose_model(model, layer_config):
             pass
         elif isinstance(module, nn.Linear):
             linear_layer = module
-            print(linear_layer)
+
             
             # todo: get set_rank from config 
-            rank = 1
             
-            decomposed = svd_decomposed_linear_model(linear_layer, rank)
-            model._module[name] = decomposed
+            
+            # decomposed = svd_decomposed_linear_model(linear_layer, rank)
+            decomposed = linear2kronlinear(linear_layer, config=layer_config)
+            model._modules[name] = decomposed
+    return model
 
-
+def kron_ensemble_model(model, layer_config=None):
+    for name, module in model._modules.items():
+        if len(list(module.children())) > 0:
+            # recurse
+            model._modules[name] = kron_ensemble_model(module, layer_config=layer_config)
+            
+        elif isinstance(module, KronLinear):
+            ensemble = kronlinear2linear(module, config=layer_config)
+            model._modules[name] = ensemble
+    
 
 def svd_decomposed_linear_model(linear_layer, rank, config):
     # todo : get the config settings
@@ -141,9 +152,26 @@ def svd_decomposed_linear_model(linear_layer, rank, config):
     
     
     
-def kronlinear2linear(kronlinear_layer):
     
-    return
+def linear2kronlinear(linear_layer, rank=None, config=None):
+    rank_rate = 0.5
+    if config is not None:
+        rank_rate = config['rank_rate'] if 'rank_rate' in config else 0.5
+        shape_bias = config['shape_bias'] if 'shape_bias' in config else 0
+    kronlinear = KronLinear(linear_layer.weight.shape[1], linear_layer.weight.shape[0], rank_rate=rank_rate, structured_sparse=True, bias=True, shape_bias=shape_bias)
+    return kronlinear
+    
+    
+    
+def kronlinear2linear(kronlinear_layer, config=None):
+    from gkpd.tensorops import kron
+    a = kronlinear_layer.a * kronlinear_layer.s
+    b = kronlinear_layer.b
+    weight = kron(a, b)
+    linear = nn.Linear(weight.shape[1], weight.shape[0], bias=True)
+    linear.weight = nn.Parameter(weight)
+    linear.bias = kronlinear_layer.bias
+    return linear
             
             
             

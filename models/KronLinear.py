@@ -66,6 +66,8 @@ class KronLinear(nn.Module):
         
         if structured_sparse:
             self.s = nn.Parameter(torch.randn( *a_shape), requires_grad=True)
+        else:
+            self.s = None
         self.a = nn.Parameter(torch.randn(self.rank, *a_shape), requires_grad=True)
         self.b = nn.Parameter(torch.randn(self.rank, *b_shape), requires_grad=True)
         nn.init.xavier_uniform_(self.a)
