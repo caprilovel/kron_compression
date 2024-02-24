@@ -1,3 +1,5 @@
 # Kronecker product decomposition  
 
-implements of some decomposition method in LeNet using MNIST dataset
+Kronecker product decomposition in different dataset and model.
+
+

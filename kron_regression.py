@@ -8,7 +8,7 @@ from models.KronLinear import KronLinear
 class KronRegression(nn.Module):
     def __init__(self, input_dim, output_dim, kron_config=None):
         super(KronRegression, self).__init__()
-        self.kronlinear = KronLinear(input_dim, output_dim, kron_config=kron_config)
+        self.kronlinear = KronLinear(input_dim, output_dim)
         self.input_dim = input_dim
         self.output_dim = output_dim
         
