@@ -1,0 +1,13 @@
+Metric 
+accuracy
+inference flops 1: kron 2:not kron
+backward flops (DNN) 
+number of params: training and inference
+sparsity rate 
+
+Ablation 
+different size
+different rank
+
+Baseline 
+blockwise spasity

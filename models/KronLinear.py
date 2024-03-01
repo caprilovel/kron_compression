@@ -227,3 +227,22 @@ if __name__ == "__main__":
         print(name, param.shape)
         params += param.numel()
     print(params)
+    
+class LowRankLinear(nn.Module):
+    def __init__(self, in_features, out_features, rank_rate=0.5, bias=True) -> None:
+        super().__init__()
+        self.rank = int(min(in_features, out_features) * rank_rate)
+        self.rank = 1 if self.rank == 0 else self.rank
+        self.a = nn.Parameter(torch.randn(self.rank, in_features), requires_grad=True)
+        self.b = nn.Parameter(torch.randn(self.rank, out_features), requires_grad=True)
+        self.bias = nn.Parameter(torch.randn(out_features), requires_grad=True) if bias else None
+        nn.init.xavier_uniform_(self.a)
+        nn.init.xavier_uniform_(self.b)
+    
+    def forward(self, x):
+        # x shape (batch, in_features)
+        out = torch.mm(x, self.a.t())
+        out = torch.mm(out, self.b)
+        if self.bias is not None:
+            out += self.bias
+        return out
