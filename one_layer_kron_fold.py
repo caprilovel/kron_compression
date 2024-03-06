@@ -8,6 +8,7 @@ import torchvision.transforms as transforms
 from sklearn.model_selection import KFold
 from models.KronLinear import KronLinear, LowRankLinear
 import random
+from utils.decomposition import kron_decompose_model
 
 #using 5-fold of mnist
 random_seed = 42
@@ -23,24 +24,34 @@ kf = KFold(n_splits=5, shuffle=True)
 batch_size = 64
 
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+class MultiLayer(nn.Module):
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.linear1 = nn.Linear(784, 512)
+        self.linear2 = nn.Linear(512, 256)
+        self.linear3 = nn.Linear(256, 10)
+        self.activation = nn.Sigmoid()
+    def forward(self, x):
+        x = x.view(-1, 784)
+        x = self.activation(self.linear1(x))
+        x = self.activation(self.linear2(x))
+        return self.activation(self.linear3(x))
+        
+    
+
 class OneLayer(nn.Module):
     def __init__(self):
         super(OneLayer, self).__init__()
         self.linear = nn.Linear(784, 10)
         self.activation = nn.Sigmoid()
+        
+        
     def forward(self, x):
         x = x.view(-1, 784)
         return self.activation(self.linear(x))
 
-class KronLayer(nn.Module):
-    def __init__(self, rank_rate=1):
-        super(KronLayer, self).__init__()
-        self.kronlinear = KronLinear(784, 10, structured_sparse=True, rank_rate=rank_rate)
-        self.activation = nn.Sigmoid()
-    def forward(self, x):
-        x = x.view(-1, 784)
-        return self.activation(self.kronlinear(x))
+
     
 class LowRankLayer(nn.Module):
     def __init__(self, rank_rate=1):
@@ -53,7 +64,13 @@ class LowRankLayer(nn.Module):
         return self.activation(self.lrlinear(x))
 
 # calculate the parameter and flops 
-model = OneLayer()
+model = MultiLayer()
+layer_config = {
+    'rank': 1,
+    'structured_sparse': True,
+    'shape_bias': -5,
+}
+model = kron_decompose_model(model, layer_config)
 from deepspeed.profiling.flops_profiler import get_model_profile
 flops, macs, params = get_model_profile(model, (1, 1, 28, 28))
 print(flops, params)
@@ -102,7 +119,7 @@ import time
 def train_test(model, ):
     model = model.cuda()
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
-    lasso_lambda = 0.0001
+
 
     start = time.time()
     accuracy = []
@@ -118,10 +135,7 @@ def train_test(model, ):
                 optimizer.zero_grad()
                 output = model(x)
                 loss = F.cross_entropy(output, y)
-                l2_regularization = torch.norm(model.linear.weight,p=2, dim=1)
-                l1_regularization = torch.norm(l2_regularization, p=1)
-                loss += lasso_lambda * l1_regularization
-
+                # loss += torch.norm(model.kronlinear.s, p=1) * 0.0001
                 loss.backward()
                 optimizer.step()
                 # if i % 100 == 0:
@@ -139,28 +153,44 @@ def train_test(model, ):
                 correct += (predicted == y).sum().item()
             print(f'fold {fold} accuracy: {correct/total}')
             accuracy.append(correct/total)
-        total_params = torch.numel(model.linear.weight) 
-        zero_params = torch.sum(model.linear.weight < 1e-5)
-        # zero_params to int
-        zero_params = zero_params.item()
-        sparsity = zero_params / total_params
-        sparse.append(sparsity)
 
     import numpy as np
     accuracy = np.array(accuracy)
     print(np.mean(accuracy), np.std(accuracy))
     
     print(np.mean(sparse), np.std(sparse))
+    
     return accuracy
-# accuracy = []
-# for i in range(1, 20, 1):
+accuracy = []
+variance = []
+# for i in range(1, 40, 1):
 #     rank_rate = i * 0.1
-#     model = LowRankLayer(rank_rate=rank_rate)
+#     model = KronLayer(rank_rate=rank_rate)
 #     flops, macs, params = get_model_profile(model, (1, 1, 28, 28))
 #     print(flops, params)
-#     accuracy.append(train_test(model))
+#     result = train_test(model)
+#     import numpy as np
+#     accuracy.append(np.mean(result))
+#     variance.append(np.std(result))
+                    
 # print(accuracy)
-model = OneLayer()
+# print(variance)
+# # save accuracy and variance 
+# import pickle
+# import os
+# if not os.path.exists('accuracy.pkl'):
+#     os.mknod('accuracy.pkl')
+# with open('accuracy.pkl', 'wb') as f:
+#     pickle.dump(accuracy, f)
+
+# if not os.path.exists('variance.pkl'):
+#     os.mknod('variance.pkl')
+# with open('variance.pkl', 'wb') as f:
+#     pickle.dump(variance, f)
+
+
+model = MultiLayer()
+model = kron_decompose_model(model, layer_config)
 flops, macs, params = get_model_profile(model, (1, 1, 28, 28))
 print(flops, params)
 train_test(model)

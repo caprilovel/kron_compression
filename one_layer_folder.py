@@ -20,7 +20,7 @@ test_mnist = torchvision.datasets.MNIST(root='./data', train=False, download=Tru
 
 full_dataset = torch.utils.data.ConcatDataset([train_mnist, test_mnist])
 kf = KFold(n_splits=5, shuffle=True)
-batch_size = 64
+batch_size = 2048
 
 
 
@@ -99,9 +99,21 @@ import time
 # sparse_num = torch.sum(model.kronlinear.s < 1e-5)
 # print(f'sparse ratio: {sparse_num/s_num}') 
 
+def freeze_A(model):
+    for name, module in model._modules.items():
+        if len(list(module.children())) > 0:
+            freeze_A(module)
+        else:
+            if isinstance(module, KronLinear):
+                module.a.requires_grad = False
+            else:
+                continue
 def train_test(model, ):
     model = model.cuda()
     optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
+    # freeze every a in model 
+    freeze_A(model)
+    
 
 
     start = time.time()
@@ -136,25 +148,46 @@ def train_test(model, ):
             print(f'fold {fold} accuracy: {correct/total}')
             accuracy.append(correct/total)
         if type(model) == KronLayer:
-            sparse_num = torch.sum(model.kronlinear.s < 1e-5)
+            sparse_num = torch.sum(model.kronlinear.s < 1e-5).item()
             s_num = torch.numel(model.kronlinear.s)
             print(f'sparse ratio: {sparse_num/s_num}')
             sparse.append(sparse_num/s_num)
     import numpy as np
     accuracy = np.array(accuracy)
     print(np.mean(accuracy), np.std(accuracy))
-    print(sparse)
+    
+    print(np.mean(sparse), np.std(sparse))
     
     return accuracy
-# accuracy = []
-# for i in range(1, 20, 1):
+accuracy = []
+variance = []
+# for i in range(1, 40, 1):
 #     rank_rate = i * 0.1
-#     model = LowRankLayer(rank_rate=rank_rate)
+#     model = KronLayer(rank_rate=rank_rate)
 #     flops, macs, params = get_model_profile(model, (1, 1, 28, 28))
 #     print(flops, params)
-#     accuracy.append(train_test(model))
+#     result = train_test(model)
+#     import numpy as np
+#     accuracy.append(np.mean(result))
+#     variance.append(np.std(result))
+                    
 # print(accuracy)
-model = KronLayer(rank_rate=0.5)
+# print(variance)
+# # save accuracy and variance 
+# import pickle
+# import os
+# if not os.path.exists('accuracy.pkl'):
+#     os.mknod('accuracy.pkl')
+# with open('accuracy.pkl', 'wb') as f:
+#     pickle.dump(accuracy, f)
+
+# if not os.path.exists('variance.pkl'):
+#     os.mknod('variance.pkl')
+# with open('variance.pkl', 'wb') as f:
+#     pickle.dump(variance, f)
+
+
+model = KronLayer(rank_rate=6)
 flops, macs, params = get_model_profile(model, (1, 1, 28, 28))
 print(flops, params)
 train_test(model)

@@ -105,6 +105,19 @@ def decompose_model(model, type, config):
     pass
 
 def kron_decompose_model(model, layer_config=None):
+    """_summary_
+
+    Args:
+        model (_type_): _description_
+        layer_config (_type_, optional): _description_. Defaults to None.
+            A dictionary containing the configuration for the decomposition
+            layer_config = {
+                'rank_rate': 0.5,
+                'shape_bias': 0
+            }
+    Returns:
+        _type_: _description_
+    """
     for name, module in model._modules.items():
         if len(list(module.children())) > 0:
             # recurse
@@ -154,11 +167,29 @@ def svd_decomposed_linear_model(linear_layer, rank, config):
     
     
 def linear2kronlinear(linear_layer, rank=None, config=None):
+    """_summary_
+
+    Args:
+        linear_layer (_type_): _description_
+        rank (_type_, optional): _description_. Defaults to None.
+        config (_type_, optional): _description_. Defaults to None.
+            config = {
+                'rank_rate': 0.5,
+                'shape_bias': 0,
+                'rank': 0
+            }
+
+    Returns:
+        _type_: _description_
+    """
     rank_rate = 0.5
     if config is not None:
         rank_rate = config['rank_rate'] if 'rank_rate' in config else 0.5
         shape_bias = config['shape_bias'] if 'shape_bias' in config else 0
-    kronlinear = KronLinear(linear_layer.weight.shape[1], linear_layer.weight.shape[0], rank_rate=rank_rate, structured_sparse=True, bias=True, shape_bias=shape_bias)
+        rank = config['rank'] if 'rank' in config else 0
+    kronlinear = KronLinear(
+        linear_layer.weight.shape[1], linear_layer.weight.shape[0], rank_rate=rank_rate,
+        structured_sparse=True, bias=True, shape_bias=shape_bias, rank=rank)
     return kronlinear
     
     
